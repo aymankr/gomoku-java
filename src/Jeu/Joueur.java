@@ -14,13 +14,19 @@ abstract public class Joueur {
     private boolean estNoir;
     private String nom;
     private boolean gagne;
+    public int nbTours;
 
     Joueur(String n, boolean estNoir) {
         this.estNoir = estNoir;
         this.nom = n;
+        this.nbTours = 0;
     }
     
     public void jouerPosition() {
 
+    }
+    
+    public int getNbTours() {
+        return nbTours;
     }
 }

@@ -11,6 +11,7 @@ package Jeu;
  */
 public class Coordonnees {
 
+    private Case c;
     private int ligne, colonne;
     private static final int NB_LIGNES = 5;
     private static final int NB_COLONNES = 8;
@@ -22,7 +23,7 @@ public class Coordonnees {
         ligne = numLigne;
         colonne = numColonne;
     }
-
+    
     static Coordonnees depuisCars(char carLigne, int col) {
         return new Coordonnees(
                 carLigneVersNum(carLigne), col);

@@ -10,10 +10,26 @@ package Jeu;
  * @author A
  */
 public class Case {
+
+    private Coordonnees coord;
+    private Color color;
     
-    private Coordonnees c;
+
+    public Case(Coordonnees c) {
+        this.coord = c;
+        this.color = Color.NONE;
+    }
+
+    public Color getColor(Case c) {
+        return this.color;
+    }
     
-    enum Color {
+    public boolean positionDispo() {
+        return getColor(this).NONE != null;
+    }
+
+    public enum Color {
         BLACK, WHITE, NONE
     };
+
 }

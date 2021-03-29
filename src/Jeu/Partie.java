@@ -5,23 +5,28 @@
  */
 package Jeu;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author A
  */
 public class Partie {
     
-    private Joueur j1;
-    private Joueur j2;
+    private Match m;
+    private ArrayList<String> coupJouesJoueur1, coupJouesJoueur2;
+    private Joueur j1, j2;
     private boolean finie;
     
-    Partie(Joueur ja, Joueur jb) {
-        this.j1 = jb;
+    Partie(Joueur ja, Joueur jb, Match m) {
+        this.j1 = ja;
         this.j2 = jb;
+        this.m = m;
     }
     
-    public void partieTermine() {
-        
+    public boolean partieTermine() {
+        return j1.getNbTours() == m.getNbTours() 
+                && j2.getNbTours() == m.getNbTours();
     }
     
     public void set(Coordonnees coord, Case.Color couleur) {

@@ -11,16 +11,20 @@ package Jeu;
  */
 public class Match {
     
+    private int nbTours;
     private Joueur j1;
     private Joueur j2;
-    private int nbToursJ1;
-    private int nbToursJ2;
     
-    Match(int tJa, int tJb, Joueur ja, Joueur jb) {
-        this.nbToursJ1 = tJa;
-        this.nbToursJ2 = tJb;
+    Match(int nb, Joueur ja, Joueur jb) {
         this.j1 = ja;
         this.j2 = jb;
+        this.nbTours = nb;
+        j1.nbTours = nb;
+        j2.nbTours = nb;
+    }
+    
+    public int getNbTours() {
+        return nbTours;
     }
     
     public void run() {
