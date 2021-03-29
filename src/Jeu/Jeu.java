@@ -10,7 +10,7 @@ import static java.lang.System.in;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
-    
+
 /**
  *
  * @author A

@@ -19,10 +19,17 @@ public class Match {
         this.j1 = ja;
         this.j2 = jb;
         this.nbTours = nb;
-        j1.nbTours = nb;
-        j2.nbTours = nb;
     }
     
+    public Joueur getJoueur(boolean estNoir) {
+        if (estNoir) {
+            return j1;
+        }
+        else {
+            return j2;
+        }
+    }
+
     public int getNbTours() {
         return nbTours;
     }
