@@ -9,12 +9,18 @@ package Jeu;
  *
  * @author A
  */
-public class Joueur {
+abstract public class Joueur {
 
+    private boolean estNoir;
     private String nom;
     private boolean gagne;
 
-    Joueur(String n) {
+    Joueur(String n, boolean estNoir) {
+        this.estNoir = estNoir;
         this.nom = n;
+    }
+    
+    public void jouerPosition() {
+
     }
 }
