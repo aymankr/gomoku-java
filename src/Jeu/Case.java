@@ -1,4 +1,4 @@
-/*
+/*.........
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -13,7 +13,6 @@ public class Case {
 
     private Coordonnees coord;
     private Color color;
-    
 
     public Case(Coordonnees c) {
         this.coord = c;
@@ -23,12 +22,36 @@ public class Case {
     public Color getColor(Case c) {
         return this.color;
     }
-    
+
     public boolean positionDispo() {
-        return getColor(this).NONE != null;
+        return Color.NONE != null;
     }
 
-    public enum Color {
+    public char getAffichable() {
+        char g;
+        switch (color) {
+        case BLACK:
+            g = 'X';
+            break;
+        case WHITE:
+            g = 'O';
+            break;
+        default:
+            g = ' ';
+            break;
+        }
+        return g;
+    }
+
+    public void setColor(boolean estNoir) {
+        if (estNoir) {
+            this.color = Color.BLACK;
+        } else {
+            this.color = Color.WHITE;
+        }
+    }
+
+    private enum Color {
         BLACK, WHITE, NONE
     };
 

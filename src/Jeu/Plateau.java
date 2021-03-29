@@ -16,28 +16,48 @@ import java.util.Map;
 public class Plateau {
 
     Map<Integer, String> plat = new HashMap<>();
-
+    
+    
     private final int nbCols, nbRows;
     private final char[][] image;
-    char[] lettres = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
+
 
     public Plateau(int nbCols, int nbRows) {
         this.nbCols = nbCols;
         this.nbRows = nbRows;
         this.image = new char[nbCols][nbRows];
     }
+    
+   
 
-    public void display() {
+    public void display(){
+        char col = 65;
+        System.out.print("    ");
+        for (int c=0; c< nbCols; c++){
+            
+            System.out.print(col);
+            System.out.print(" ");
+            col++;
+        }
         displayRows();
         System.out.println();
+        
         displayBar();
+          
+       
         for (int r = 0; r < nbRows; r++) {
             System.out.print(r);
             System.out.print(" |");
+            
             for (int c = 0; c < nbCols; c++) {
+                image[c][r] = 32;
+              
                 System.out.print(image[c][r]);
+                System.out.print(" ");
             }
-            System.out.println("|");
+            
+            System.out.println(" |");
+    
         }
         displayBar();
     }
@@ -45,12 +65,15 @@ public class Plateau {
     private void displayBar() {
         System.out.print("  +");
         for (int c = 0; c < nbCols; c++) {
-            System.out.print("-");
+            System.out.print(" -");
         }
-        System.out.println("+");
+        System.out.println(" +");
     }
-
+    
+    
     private void displayRows() {
         
     }
-}
+    
+
+    }

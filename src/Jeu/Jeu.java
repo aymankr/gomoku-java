@@ -10,7 +10,7 @@ import static java.lang.System.in;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
-
+    
 /**
  *
  * @author A
@@ -34,8 +34,8 @@ public class Jeu {
         boolean boucler = true;
         while (boucler) {
             out.println("* Menu");
-            out.println("aa) ajouter abonné");
-            out.println("al) ajouter livre");
+            out.println("a) Jouer contre un bot");
+            out.println("b) Jouer contre un humain");
             out.println("q) quitter");
             out.print("? ");
             String commande = lireLigne();

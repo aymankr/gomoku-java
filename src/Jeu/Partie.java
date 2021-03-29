@@ -29,11 +29,4 @@ public class Partie {
                 && j2.getNbTours() == m.getNbTours();
     }
     
-    public void set(Coordonnees coord, Case.Color couleur) {
-        
-    }
-    
-    public Case.Color get(Coordonnees coord) {
-        return null;
-    }
 }
