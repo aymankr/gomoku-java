@@ -28,7 +28,7 @@ public class Partie {
         this.m = m;
     }
 
-    public void gererPartie() {
+    public void gererPartie() throws CoupChoisiException  {
         boolean estNoir = true;
         boolean tourNoir = true;
         int nbTours = m.getNbTours() / 2;
@@ -36,14 +36,16 @@ public class Partie {
         while (!partieTerminee()) {
             if (nbTours % 2 == 0) {
                 out.println(m.getJoueur(estNoir).getNom() + " joue un coup : " + "");
-                out.println(m.getJoueur(estNoir).getNom() + "a joué le coup : ");
+                String coupJ1 = coupChoisi();
+                out.println(m.getJoueur(estNoir).getNom() + "a joué le coup : " + coupJ1);
                 m.getJoueur(estNoir).setTour(!tourNoir);
                 nbTours--;
 
             } else if (nbTours % 2 == 1) {
                 out.println(m.getJoueur(!estNoir).getNom() + " joue un coup : " + "");
+                // add dans la liste
                 out.println(m.getJoueur(!estNoir).getNom() + "a joué le coup : ");
-                m.getJoueur(!estNoir).setTour(!tourNoir);
+                m.getJoueur(!estNoir).setTour(tourNoir);
                 nbTours--;
             }
 

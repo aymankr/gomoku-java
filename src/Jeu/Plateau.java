@@ -69,6 +69,10 @@ public class Plateau {
 
     }
 
-    public int getLigne() { return nbRows;}
-    public int getColonne() { return nbCols;}
+    public int getLigne() {
+        return nbRows;
+    }
+    public int getColonne() { 
+        return nbCols;
+    }
 }
