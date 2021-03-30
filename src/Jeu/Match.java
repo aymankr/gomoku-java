@@ -14,8 +14,9 @@ public class Match {
     private int nbTours;
     private Joueur j1;
     private Joueur j2;
+    private Plateau p;
     
-    Match(int nb, Joueur ja, Joueur jb) {
+    public Match(int nb, Joueur ja, Joueur jb) {
         this.j1 = ja;
         this.j2 = jb;
         this.nbTours = nb;
@@ -34,6 +35,10 @@ public class Match {
         return nbTours;
     }
     
+    public Plateau getPlateau() {
+        return p;
+    }
+
     public void run() {
         
     }
