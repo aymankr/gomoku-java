@@ -31,28 +31,17 @@ public class Partie {
             if (nbTours % 2 == 0) {
                 out.println(m.getJoueur(estNoir).getNom() + " joue un coup : " + "");
                 String coupJ1 = coupChoisi();
-<<<<<<< HEAD
                 coupJouesJoueur1.add(coupJ1);
                 // ajout de case, set la position en black
                 out.println(m.getJoueur(estNoir).getNom() + "a joué le coup : " + coupJ1);
-=======
-                out.println(m.getJoueur(estNoir).getNom() + "a joué le coup : " + coupJ1);
-                m.getJoueur(estNoir).setTour(!tourNoir);
->>>>>>> cc3286996fc1e973d867b961bf4b7f120faaba56
                 nbTours--;
 
             } else if (nbTours % 2 == 1) {
                 out.println(m.getJoueur(!estNoir).getNom() + " joue un coup : " + "");
-<<<<<<< HEAD
                 String coupJ2 = coupChoisi();
                 coupJouesJoueur2.add(coupJ2);
                 // ajout de case, set la position en white
                 out.println(m.getJoueur(!estNoir).getNom() + "a joué le coup : ");
-=======
-                // add dans la liste
-                out.println(m.getJoueur(!estNoir).getNom() + "a joué le coup : ");
-                m.getJoueur(!estNoir).setTour(tourNoir);
->>>>>>> cc3286996fc1e973d867b961bf4b7f120faaba56
                 nbTours--;
             }
 
