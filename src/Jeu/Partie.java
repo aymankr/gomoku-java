@@ -69,6 +69,34 @@ public class Partie {
         return coup;
     }
     
+    private void afficherCoupsFin() {
+        out.println("Coups du joueur 1 : ");
+        for (String c1 : coupJouesJoueur1) {
+            out.println(c1);
+        }
+
+        out.println("Coups du joueur 2 : ");
+        for (String c2 : coupJouesJoueur2) {
+            out.println(c2);
+        }
+    }
+
+    public void jouerCoup(Case c, boolean estNoir, String coup) {
+        if (c.positionDispo()) {
+            c.setColor(estNoir);
+        }
+        else {
+            c.setColor(!estNoir);
+        }
+        ajoutCoupPlat(coup);
+    }
+
+    public void ajoutCoupPlat(String coup) {
+        char charCol = coup.charAt(0);
+        int colToInt = Coordonnees.carColVersNum(charCol, p);
+
+    }
+
     public Joueur getJoueur(boolean estNoir) {
         if (estNoir) {
             return j1;

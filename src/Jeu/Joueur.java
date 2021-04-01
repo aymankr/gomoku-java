@@ -28,4 +28,6 @@ abstract public class Joueur {
     public int getNbTours() {
         return nbTours;
     }
+
+    abstract void jouerCoup();
 }

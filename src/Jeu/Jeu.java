@@ -122,16 +122,10 @@ public class Jeu  {
         }
         private static void menuPartie(boolean estSeul) throws CoupChoisiException{
             
-            int nbT = questionInt("Combien de tour voulez vous jouer ?");
-            System.out.println("");
-            System.out.println("");
-            int nbL = questionInt("Combien de lignes ?");
-            System.out.println("");
-            System.out.println("");
-            int nbC = questionInt("Combien de colonnes ?");
-            System.out.println("");
-            System.out.println("");
-            
+            int nbT = questionInt("Combien de tour voulez vous jouer ?" + "\n" + "\n");
+            int nbL = questionInt("Combien de lignes ?" + "\n" + "\n");
+            int nbC = questionInt("Combien de colonnes ?" + "\n" + "\n");
+
             
             
             if (!estSeul){
@@ -140,14 +134,12 @@ public class Jeu  {
             
             
             
-            
-            
-            Joueur j1 = new JoueurHumain(questionString("quel est votre nom ?"),true);
-            System.out.println("");
-            System.out.println("");
+            Joueur j1 = new JoueurHumain(questionString("quel est votre nom ?" + "\n" + "\n")
+            ,true);
             Joueur j2;
             if (!estSeul){
-                j2 = new JoueurHumain(questionString("Joueur 2, quel est votre nom ?"),false);
+                j2 = new JoueurHumain(questionString("Joueur 2, quel est votre nom ?" + "\n" + "\n")
+                ,false);
             }
             else{
                 j2 = new JoueurIA("IA", false);
