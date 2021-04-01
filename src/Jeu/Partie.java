@@ -56,7 +56,7 @@ public class Partie {
     public String coupChoisi() throws CoupChoisiException {
         String coup = lireLigne();
 
-        if (coup.charAt(0) < 65 && coup.charAt(0) > (char) p.getColonne() + 65 && coup.charAt(1) < 47
+        if (coup.charAt(0) < 65 && coup.charAt(0) > (char) m.getPlateau().getColonne() + 65 && coup.charAt(1) < 47
                 && coup.charAt(1) > 47 + m.getPlateau().getLigne()) {
             throw new CoupChoisiException("Coup choisi inconnu : " + coup + "\n" + ".Les coups autorisés sont de A à "
                     + (char) (65 + m.getPlateau().getColonne()) + "\n" + "puis de 0 à " + m.getPlateau().getLigne());

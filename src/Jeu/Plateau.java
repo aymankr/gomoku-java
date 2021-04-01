@@ -10,15 +10,15 @@ import java.util.Map;
  */
 public class Plateau {
 
-    Map<Integer, String> plat = new HashMap<>();
+    
 
     private final int nbCols, nbRows;
-    private final char[][] image;
+    private final Case[][] plat;
 
     public Plateau(int nbCols, int nbRows) {
         this.nbCols = nbCols;
         this.nbRows = nbRows;
-        this.image = new char[nbCols][nbRows];
+        this.plat = new Case[nbCols][nbRows];
     }
 
     public void display() {
@@ -30,7 +30,7 @@ public class Plateau {
             System.out.print(" ");
             col++;
         }
-        displayRows();
+        
         System.out.println();
 
         displayBar();
@@ -40,9 +40,9 @@ public class Plateau {
             System.out.print(" |");
 
             for (int c = 0; c < nbCols; c++) {
-                image[c][r] = 32;
+              
 
-                System.out.print(image[c][r]);
+                System.out.print(plat[c][r].getAffichable());
                 System.out.print(" ");
             }
 
@@ -60,9 +60,7 @@ public class Plateau {
         System.out.println(" +");
     }
 
-    private void displayRows() {
 
-    }
 
     public int getLigne() {
         return nbRows;
