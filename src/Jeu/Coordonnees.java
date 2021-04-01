@@ -11,34 +11,29 @@ package Jeu;
  */
 public class Coordonnees {
 
-    private Case c;
     private int ligne, colonne;
-    private static final int NB_LIGNES = 5;
-    private static final int NB_COLONNES = 8;
 
-    static final char CAR_PREMIERE_LIGNE = 'A';
-    static final int PREMIERE_COLONNE = 1;
+    static final char CAR_PREMIERE_COLONNE = 'A';
+    static final int PREMIERE_LIGNE = 0;
 
-    Coordonnees(int numLigne, int numColonne) {
+    public Coordonnees(int numLigne, int numColonne) {
         ligne = numLigne;
         colonne = numColonne;
     }
     
-    static Coordonnees depuisCars(char carLigne, int col) {
-        return new Coordonnees(
-                carLigneVersNum(carLigne), col);
-    }
 
-    static int carLigneVersNum(char nomLigne) {
-        final char carMin = CAR_PREMIERE_LIGNE;
-        final char carMax = CAR_PREMIERE_LIGNE + NB_LIGNES - 1;
-        if ((nomLigne < carMin) || (nomLigne > carMax)) {
+    public static int carColVersNum(char nomCol, Plateau plat) {
+        int nbCols = plat.getColonne()-1;
+        final char carMin = CAR_PREMIERE_COLONNE;
+        final char carMax = (char)(CAR_PREMIERE_COLONNE + nbCols);
+        
+        if ((nomCol < carMin) || (nomCol > carMax)) {
             throw new IllegalArgumentException(
-                    "Appel incorrect à carVersNum, avec car = " + nomLigne
+                    "Appel incorrect à carVersNum, avec car = " + nomCol
                     + ". Les valeurs autorisées sont les caractères entre "
                     + carMin + " et " + carMax + ".");
         }
-        return nomLigne - CAR_PREMIERE_LIGNE;
+        return nomCol - CAR_PREMIERE_COLONNE;
     }
-
+    
 }
