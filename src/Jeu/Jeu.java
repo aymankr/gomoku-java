@@ -21,7 +21,7 @@ public class Jeu  {
     static PrintStream out = System.out;
 
     /**
-     * @param args the command line arguments
+     * Le main
      */
     public static void main(String[] args) throws CoupChoisiException{
         out.println("* Bienvenue sur Gomoku.\n");
@@ -30,6 +30,10 @@ public class Jeu  {
         menuPrincipal();
     }
 
+    /**
+     * Affiche le menu principal au(x) joueur(s) et leur permet de choisir un mode de jeu
+     * @throws CoupChoisiException 
+     */
     static void menuPrincipal() throws CoupChoisiException{
         boolean boucler = true;
         while (boucler) {
@@ -60,22 +64,62 @@ public class Jeu  {
         
     }
     
+        /**
+         * Pose une question et attend un entier comme réponse
+         * @param s la question posée
+         * @return la réponse
+         */
         private static int questionInt(String s){
             System.out.println(s);
             System.out.print("--> ");
             String l = lireLigne();
-            int n = Integer.parseInt(l);
+            int n;
+            try{
+                
+                n = Integer.parseInt(l);
+                if (n<0){
+                    System.out.println("Erreur de saisie : entier strictement positif attendu");
+                }
+            }
+            catch(Exception e){
+                System.out.println("Erreur de saise : entier attendu");
+                n = -1;
+            }
+            if (n<0){
+                n= questionInt(s);
+            }
             return n;
         }
         
+        /**
+         * 
+         * @param s
+         * @return 
+         */
         private static String questionString(String s){
             System.out.println(s);
             System.out.print("--> ");
             String l = lireLigne();
-          
+            
             return l;
         }
         
+        private static boolean nomValide(String s){
+            boolean v = true;
+            int i =0;
+            while(i < s.length() && v){
+                char c = s.charAt(i);
+                if (!lettreValide(c)){
+                    v = false;
+                }
+                i++;
+            }
+            return v;
+        }
+        
+        private static boolean lettreValide(char c){
+            return (c > 96 && c < 123) || (c > 64 && c < 91);
+        }
         private static void menuPartie(boolean estSeul) throws CoupChoisiException{
             
             int nbT = questionInt("Combien de tour voulez vous jouer ?");

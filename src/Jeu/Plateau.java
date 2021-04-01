@@ -47,7 +47,13 @@ public class Plateau {
 
         for (int r = 0; r < nbRows; r++) {
             System.out.print(r);
-            System.out.print(" |");
+            
+            if (r > 10){
+                System.out.print("|");
+            }
+            else{
+                System.out.print(" |");
+            }
 
             for (int c = 0; c < nbCols; c++) {
               
