@@ -15,10 +15,20 @@ public class Plateau {
     private final int nbCols, nbRows;
     private final Case[][] plat;
 
-    public Plateau(int nbCols, int nbRows) {
+    public Plateau(int nbRows, int nbCols) {
         this.nbCols = nbCols;
         this.nbRows = nbRows;
-        this.plat = new Case[nbCols][nbRows];
+        this.plat = new Case[nbRows][nbCols];
+        initPlateau();
+    }
+    
+    private void initPlateau(){
+        for(int i = 0; i< nbRows; i++){
+            for(int j =0; j< nbCols;j++){
+                Coordonnees c = new Coordonnees(i,j);
+                plat[i][j] = new Case(c);
+            }
+        }
     }
 
     public void display() {
@@ -42,7 +52,7 @@ public class Plateau {
             for (int c = 0; c < nbCols; c++) {
               
 
-                System.out.print(plat[c][r].getAffichable());
+                System.out.print(plat[r][c].getAffichable());
                 System.out.print(" ");
             }
 
