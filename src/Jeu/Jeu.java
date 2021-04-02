@@ -77,15 +77,16 @@ public class Jeu  {
             try{
                 
                 n = Integer.parseInt(l);
-                if (n<0){
+                if (n<=0){
                     System.out.println("Erreur de saisie : entier strictement positif attendu");
                 }
+                
             }
             catch(Exception e){
                 System.out.println("Erreur de saise : entier attendu");
                 n = -1;
             }
-            if (n<0){
+            if (n<=0){
                 n= questionInt(s);
             }
             return n;
@@ -100,6 +101,10 @@ public class Jeu  {
             System.out.println(s);
             System.out.print("--> ");
             String l = lireLigne();
+            if (!nomValide(l)){
+                System.out.println("Erreur de saisie : le nom ne peut être constitué que de lettres");
+                l = questionString(s);
+            }
             
             return l;
         }
@@ -122,10 +127,16 @@ public class Jeu  {
         }
         private static void menuPartie(boolean estSeul) throws CoupChoisiException{
             
-            int nbT = questionInt("Combien de tour voulez vous jouer ?" + "\n" + "\n");
-            int nbL = questionInt("Combien de lignes ?" + "\n" + "\n");
-            int nbC = questionInt("Combien de colonnes ?" + "\n" + "\n");
-
+            int nbT = questionInt("Combien de tour voulez vous jouer ?");
+            System.out.println("");
+            System.out.println("");
+            int nbL = questionInt("Combien de lignes ?");
+            System.out.println("");
+            System.out.println("");
+            int nbC = questionInt("Combien de colonnes ?");
+            System.out.println("");
+            System.out.println("");
+            
             
             
             if (!estSeul){
@@ -134,12 +145,14 @@ public class Jeu  {
             
             
             
-            Joueur j1 = new JoueurHumain(questionString("quel est votre nom ?" + "\n" + "\n")
-            ,true);
+            
+            
+            Joueur j1 = new JoueurHumain(questionString("quel est votre nom ?"),true);
+            System.out.println("");
+            System.out.println("");
             Joueur j2;
             if (!estSeul){
-                j2 = new JoueurHumain(questionString("Joueur 2, quel est votre nom ?" + "\n" + "\n")
-                ,false);
+                j2 = new JoueurHumain(questionString("Joueur 2, quel est votre nom ?"),false);
             }
             else{
                 j2 = new JoueurIA("IA", false);
