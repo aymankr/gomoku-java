@@ -10,53 +10,57 @@ import java.util.Map;
  */
 public class Plateau {
 
-    
-
-    private final int nbCols, nbRows;
+    private final int nbColonnes, nbLignes;
     private final Case[][] plat;
 
-    public Plateau(int nbRows, int nbCols) {
-        this.nbCols = nbCols;
-        this.nbRows = nbRows;
-        this.plat = new Case[nbRows][nbCols];
+    public Plateau(int nbLignes, int nbColonnes) {
+        this.nbColonnes = nbColonnes;
+        this.nbLignes = nbLignes;
+        this.plat = new Case[nbLignes][nbColonnes];
         initPlateau();
     }
-    
-    private void initPlateau(){
-        for(int i = 0; i< nbRows; i++){
-            for(int j =0; j< nbCols;j++){
-                Coordonnees c = new Coordonnees(i,j);
+
+    /**
+     * Initialiser un plateau composé de cases et coordonnées
+     * 
+     */
+    private void initPlateau() {
+        for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                Coordonnees c = new Coordonnees(i, j);
                 plat[i][j] = new Case(c);
             }
         }
     }
 
+    /**
+     * Afficher l'ensemble du plateau
+     * 
+     */
     public void display() {
         char col = 65;
         System.out.print("    ");
-        for (int c = 0; c < nbCols; c++) {
+        for (int c = 0; c < nbColonnes; c++) {
 
             System.out.print(col);
             System.out.print(" ");
             col++;
         }
-        
+
         System.out.println();
 
         displayBar();
 
-        for (int r = 0; r < nbRows; r++) {
+        for (int r = 0; r < nbLignes; r++) {
             System.out.print(r);
-            
-            if (r > 10){
+
+            if (r >= 10) {
                 System.out.print("|");
-            }
-            else{
+            } else {
                 System.out.print(" |");
             }
 
-            for (int c = 0; c < nbCols; c++) {
-              
+            for (int c = 0; c < nbColonnes; c++) {
 
                 System.out.print(plat[r][c].getAffichable());
                 System.out.print(" ");
@@ -68,20 +72,33 @@ public class Plateau {
         displayBar();
     }
 
+    /**
+     * Afficher les délimitations haut et bas du plateau
+     * 
+     */
     private void displayBar() {
         System.out.print("  +");
-        for (int c = 0; c < nbCols; c++) {
+        for (int c = 0; c < nbColonnes; c++) {
             System.out.print(" -");
         }
         System.out.println(" +");
     }
 
-
-
-    public int getLigne() {
-        return nbRows;
+    /**
+     * Récolter le nombre de lignes du plateau
+     * 
+     * @return retourner ce nombre
+     */
+    public int getNbLignes() {
+        return nbLignes;
     }
-    public int getColonne() { 
-        return nbCols;
+
+    /**
+     * Récolter le nombre de colonnes
+     * 
+     * @return retourner ce nombre
+     */
+    public int getNbColonnes() {
+        return nbColonnes;
     }
 }
