@@ -11,12 +11,12 @@ import java.util.Set;
  */
 public class Partie {
 
-    static Scanner in = new Scanner(System.in);
-    static PrintStream out = System.out;
+    private static Scanner in = new Scanner(System.in);
+    private static PrintStream out = System.out;
 
     private TreeMap<String, String> coupJoues;
     private Joueur j1, j2;
-    private Plateau p;
+    private Plateau plat;
     private int nbTours;
 
     /**
@@ -32,32 +32,36 @@ public class Partie {
         this.j1 = ja;
         this.j2 = jb;
         this.nbTours = nbT;
-        this.p = new Plateau(nbLig, nbCol);
-        this.coupJoues = new TreeMap<String, String>();
+        this.plat = new Plateau(nbLig, nbCol);
+        this.coupJoues = new TreeMap<>();
     }
 
+    /**
+     * Gestion d'une partie tour à tour ajout des coups joués dans l'affichage,
+     * lorsque la partie est terminée afficher l'historique des coups
+     * 
+     */
     public void gererPartie() {
+        boolean estNoir = true;
         int nbT = nbTours;
-        out.println("La partie dure " + nbT + " tours, à vous de jouer !");
+        out.println("La partie dure " + nbT + " tours, à vous de jouer !" + "\n");
 
-        while (!partieTerminee() && nbT > 0) {
+        while (!plat.partieTerminee() && nbT > 0) {
             int tour = nbTours - nbT + 1;
 
-            p.display();
-            out.println("Tour : " + tour);
+            plat.display();
+            out.println("\n" + "Tour " + tour + "\n");
             if (nbT % 2 == 0) {
 
-                String coupJ1 = coupChoisi("Coup de : " + j1.getNom());
+                String coupJ1 = coupChoisi("Coup de " + j1.getNom() + " :");
                 coupJoues.put(coupJ1, j1.getNom());
-
-                // ajout de case dans l'affichage, set la position en black
+                plat.modifPlat(this, estNoir, coupJ1);
 
             } else if (nbT % 2 == 1) {
 
-                String coupJ2 = coupChoisi("Coup de : " + j2.getNom());
+                String coupJ2 = coupChoisi("Coup de " + j2.getNom() + " :");
                 coupJoues.put(coupJ2, j2.getNom());
-
-                // ajout de case, set la position en white
+                plat.modifPlat(this, !estNoir, coupJ2);
             }
             nbT--;
 
@@ -65,29 +69,42 @@ public class Partie {
         afficherCoupsFin();
     }
 
-    // vérifier aussi si 5 cases de meme color sont alignées
-    public boolean partieTerminee() {
-        return j1.getNbToursJoues() == this.getNbTours() && j2.getNbToursJoues() == this.getNbTours();
-    }
+    private String coupChoisi(String s) {
 
-    public String coupChoisi(String s) {
         out.println(s);
         out.print("--> ");
         String coup = lireLigne();
 
-        if (coup.charAt(0) < 65 || coup.charAt(0) >= (char) this.getPlateau().getNbColonnes() + 65
-                || coup.charAt(1) < 47 || coup.charAt(1) > 47 + this.getPlateau().getNbLignes()) {
-            out.println("Coup choisi inconnu : " + coup + ", les coups autorisés sont de A à "
-                    + (char) (65 + this.getPlateau().getNbColonnes() - 1) + ", puis de 0 à "
-                    + (this.getPlateau().getNbLignes() - 1));
-            coup = coupChoisi(s);
-        } else if (!coupDispo(coup)) {
-            out.println(coup + " a déjà été joué, réessayez.");
+        String msgCoupInterdit = "Coup choisi inconnu : " + coup + ", les coups autorisés sont de A à "
+                + (char) (65 + this.getPlateau().getNbColonnes() - 1) + ", puis de 0 à "
+                + (this.getPlateau().getNbLignes() - 1);
+
+        try {
+            if (!coupValide(coup)) {
+                out.println(msgCoupInterdit);
+                coup = coupChoisi(s);
+
+            } else if (!coupDispo(coup)) {
+                out.println(coup + " a déjà été joué, réessayez.");
+                coup = coupChoisi(s);
+            }
+        } catch (Exception e) {
+            out.println(msgCoupInterdit);
             coup = coupChoisi(s);
         }
 
         return coup;
+    }
 
+    public boolean coupValide(String coup) {
+        int lig = 0, col = 0;
+        boolean chaineValide = (coup != null && coup.length() == 2 || coup.length() == 3);
+        if (chaineValide) {
+            lig = plat.coupLigne(coup);
+            col = plat.coupCol(coup);
+        }
+
+        return chaineValide && lig >= 0 && lig < plat.getNbLignes() && col >= 0 && col < plat.getNbColonnes();
     }
 
     private boolean coupDispo(String coup) {
@@ -99,35 +116,17 @@ public class Partie {
      * 
      */
     private void afficherCoupsFin() {
-        out.println("Fin de partie, historique des coups : ");
+        int i = 1;
+        out.println("\n" + "Fin de partie, historique des coups : " + "\n");
         Set<String> coups = coupJoues.keySet();
 
         for (String c : coups) {
-            System.out.println(coupJoues.get(c) + " a joué : " + c);
+            out.println("N°" + i + " --> " + coupJoues.get(c) + " joue " + c);
+            i++;
         }
-    }
 
-    /*
-     * public void jouerCoup(Case c, boolean estNoir, String coup) { if
-     * (c.positionDispo()) { c.setColor(estNoir); } else { c.setColor(!estNoir); }
-     * ajoutCoupPlat(coup); }
-     * 
-     * public void ajoutCoupPlat(String coup) { char charCol = coup.charAt(0); int
-     * colToInt = Coordonnees.carColVersNum(charCol, p);
-     * 
-     * }
-     * 
-     * public Joueur getJoueur(boolean estNoir) { if (estNoir) { return j1; } else {
-     * return j2; } }
-     */
-
-    /**
-     * Récolter le nombre de tours de la partie
-     * 
-     * @return retourner ce nombre
-     */
-    private int getNbTours() {
-        return nbTours;
+        out.println("\n" + "Plateau final : " + "\n");
+        plat.display();
     }
 
     /**
@@ -136,7 +135,7 @@ public class Partie {
      * @return retourner ce plateau
      */
     private Plateau getPlateau() {
-        return p;
+        return plat;
     }
 
     /**
