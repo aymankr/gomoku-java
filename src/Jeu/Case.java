@@ -23,10 +23,6 @@ public class Case {
         return this.color;
     }
 
-    public boolean positionDispo() {
-        return Color.NONE != null;
-    }
-
     public char getAffichable() {
         char g;
         switch (color) {
@@ -55,4 +51,22 @@ public class Case {
         BLACK, WHITE, NONE
     };
 
+    public boolean victoireAlignement(Plateau plat) {
+        Coordonnees[] coordVois = coord.coordCasesVois(plat);
+        int nbAlignees = 0;
+        boolean victoire = false;
+
+        for (Coordonnees c : coordVois) {
+            Case caseTmp = new Case(c);
+
+            if (this.color != Color.NONE && caseTmp.color.equals(this.color)) {
+                nbAlignees++;
+            }
+        }
+        if (nbAlignees >= 4) {
+            victoire = true;
+        }
+
+        return victoire;
+    }
 }
