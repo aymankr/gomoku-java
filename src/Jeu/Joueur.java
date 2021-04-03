@@ -13,7 +13,6 @@ abstract public class Joueur {
 
     private boolean estNoir;
     private String nom;
-    private int nbToursJoues;
 
     /**
      * Constructeur du joueur
@@ -24,7 +23,6 @@ abstract public class Joueur {
     public Joueur(String n, boolean estNoir) {
         this.estNoir = estNoir;
         this.nom = n;
-        this.nbToursJoues = 0;
     }
 
     /**
@@ -35,15 +33,4 @@ abstract public class Joueur {
     public String getNom() {
         return nom;
     }
-
-    /**
-     * Renvoyer le nombre de tours joués (dans le moment) du joueur en question
-     * 
-     * @return retourner ce nombre
-     */
-    public int getNbToursJoues() {
-        return nbToursJoues;
-    }
-
-    // abstract void jouerCoup();
 }
