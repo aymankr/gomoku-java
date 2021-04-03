@@ -35,14 +35,22 @@ public class Plateau {
         }
     }
 
-    public boolean partieTerminee() {
+    public boolean victoire() {
         boolean casesAlignees = false;
-        for (int i = 0; i < nbLignes; i++) {
-            for (int j = 0; j < nbColonnes; j++) {
-                Case c = plat[i][j];
-                casesAlignees = c.victoireAlignement(this, plat);
+        int i = 0, j = 0;
+        boolean fini = false;
+
+        while (i < nbLignes && j < nbColonnes && !fini) {
+            Case c = plat[i][j];
+            casesAlignees = c.victoireAlignement(this, plat);
+
+            if (casesAlignees) {
+                fini = true;
             }
+            i++;
+            j++;
         }
+
         return casesAlignees;
     }
 

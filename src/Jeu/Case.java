@@ -60,13 +60,12 @@ public class Case {
             Case caseTmp = plat[c.getLigne()][c.getCol()];
 
             if (caseTmp.color.equals(this.color) && !caseTmp.color.equals(Color.NONE)) {
-                
-                nbAlignees++;
 
+                nbAlignees++;
             }
 
         }
-        
+
         if (nbAlignees >= 4) {
             victoire = true;
         }

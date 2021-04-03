@@ -43,10 +43,11 @@ public class Partie {
      */
     public void gererPartie() {
         boolean estNoir = true;
+        boolean finiParVictoire = false;
         int nbT = nbTours;
         out.println("La partie dure " + nbT + " tours, à vous de jouer !" + "\n");
 
-        while (!plat.partieTerminee() && nbT > 0) {
+        while (!finiParVictoire && nbT > 0) {
             int tour = nbTours - nbT + 1;
 
             plat.display();
@@ -62,11 +63,18 @@ public class Partie {
                 String coupJ2 = coupChoisi("Coup de " + j2.getNom() + " :");
                 coupJoues.put(coupJ2, j2.getNom());
                 plat.modifPlat(this, !estNoir, coupJ2);
-            }            
+            }
+            finiParVictoire = plat.victoire();
             nbT--;
-
         }
-        afficherCoupsFin();
+
+        if (finiParVictoire && nbT % 2 == 0) {
+            out.println("Victoire de " + j2.getNom() + " !");
+        } else if (finiParVictoire && nbT % 2 == 1) {
+            out.println("Victoire de " + j1.getNom() + " !");
+        }
+
+        afficherCoupsFin(finiParVictoire);
     }
 
     private String coupChoisi(String s) {
@@ -115,9 +123,14 @@ public class Partie {
      * Afficher les coups joués par les joueurs en fin de partie
      * 
      */
-    private void afficherCoupsFin() {
+    private void afficherCoupsFin(boolean unGagnant) {
+        String s = "";
+        if (!unGagnant) {
+            s = "Pas de gagnants, ";
+        }
+
         int i = 1;
-        out.println("\n" + "Fin de partie, historique des coups : " + "\n");
+        out.println("\n" + s + "historique des coups : " + "\n");
         Set<String> coups = coupJoues.keySet();
 
         for (String c : coups) {
