@@ -6,11 +6,7 @@
 package Jeu;
 
 import java.io.PrintStream;
-import static java.lang.System.in;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Scanner;
-
 /**
  *
  * @author A
@@ -71,7 +67,7 @@ public class Jeu {
      * @param s la question posée
      * @return la réponse
      */
-    private static int questionInt(String s) {
+    private static int questionInt(String s, boolean demandeNbTours) {
         out.println(s);
         out.print("--> ");
         String l = lireLigne();
@@ -79,16 +75,27 @@ public class Jeu {
         try {
 
             n = Integer.parseInt(l);
-            if (n <= 0) {
-                out.println("Erreur de saisie : entier strictement positif attendu");
+
+            if (demandeNbTours && n < 10) {
+                out.println("Le nombre de tours doit être au moins de 10, réessayez : ");
             }
+            else if (n < 5 || n > 26) {
+                out.println("Erreur de saisie : entier entre 5 et 26 attendu");
+            }
+
         } catch (Exception e) {
             out.println("Erreur de saisie : entier attendu");
             n = -1;
         }
-        if (n <= 0) {
-            n = questionInt(s);
+
+        if (demandeNbTours && n < 10) {
+            n = questionInt(s, demandeNbTours);
         }
+
+        else if (n < 5 || n > 26) {
+            n = questionInt(s, demandeNbTours);
+        }
+
         return n;
     }
 
@@ -98,18 +105,17 @@ public class Jeu {
      * @param s la question
      * @return retourner la réponse
      */
-    private static String questionString(String s){
+    private static String questionString(String s) {
         out.println(s);
         out.print("--> ");
         String l = lireLigne();
-        if (!nomValide(l)){
+        if (!nomValide(l) || l.isEmpty()) {
             out.println("Erreur de saisie : le nom ne peut être constitué que de lettres");
             l = questionString(s);
         }
-        
+
         return l;
     }
-
 
     /**
      * Vérifier si un nom est valide
@@ -117,7 +123,7 @@ public class Jeu {
      * @param s le nom
      * @return retourner vrai si valide
      */
-    private static boolean nomValide(String s) {
+    public static boolean nomValide(String s) {
         boolean v = true;
         int i = 0;
         while (i < s.length() && v) {
@@ -148,9 +154,9 @@ public class Jeu {
      */
     private static void menuPartie(boolean estSeul) {
 
-        int nbT = questionInt("Combien de tours voulez vous jouer ?" + "\n" + "\n");
-        int nbL = questionInt("Combien de lignes ? (entre 5 et 26)" + "\n" + "\n");
-        int nbC = questionInt("Combien de colonnes ? (entre 5 et 26)" + "\n" + "\n");
+        int nbT = questionInt("Combien de tours voulez vous jouer ? (minimum 10)" + "\n" + "\n", true);
+        int nbL = questionInt("Combien de lignes ? (entre 5 et 26)" + "\n" + "\n", false);
+        int nbC = questionInt("Combien de colonnes ? (entre 5 et 26)" + "\n" + "\n", false);
 
         if (!estSeul) {
             System.out.print("Joueur 1, ");
