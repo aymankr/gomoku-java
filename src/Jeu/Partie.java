@@ -62,7 +62,7 @@ public class Partie {
                 String coupJ2 = coupChoisi("Coup de " + j2.getNom() + " :");
                 coupJoues.put(coupJ2, j2.getNom());
                 plat.modifPlat(this, !estNoir, coupJ2);
-            }
+            }            
             nbT--;
 
         }

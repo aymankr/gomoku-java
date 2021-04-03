@@ -19,7 +19,7 @@ public class Case {
         this.color = Color.NONE;
     }
 
-    public Color getColor(Case c) {
+    public Color getColor() {
         return this.color;
     }
 
@@ -51,22 +51,25 @@ public class Case {
         BLACK, WHITE, NONE
     };
 
-    public boolean victoireAlignement(Plateau plat) {
-        Coordonnees[] coordVois = coord.coordCasesVois(plat);
+    public boolean victoireAlignement(Plateau p, Case[][] plat) {
+        Coordonnees[] coordVois = coord.coordCasesVois(p);
         int nbAlignees = 0;
         boolean victoire = false;
 
         for (Coordonnees c : coordVois) {
-            Case caseTmp = new Case(c);
+            Case caseTmp = plat[c.getLigne()][c.getCol()];
 
-            if (this.color != Color.NONE && caseTmp.color.equals(this.color)) {
+            if (caseTmp.color.equals(this.color) && !caseTmp.color.equals(Color.NONE)) {
+                
                 nbAlignees++;
+
             }
+
         }
+        
         if (nbAlignees >= 4) {
             victoire = true;
         }
-
         return victoire;
     }
 }

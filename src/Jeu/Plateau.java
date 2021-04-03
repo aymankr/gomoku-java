@@ -14,14 +14,12 @@ public class Plateau {
 
     private final int nbColonnes, nbLignes;
     private final Case[][] plat;
-    private boolean casesAlignees;
 
     public Plateau(int nbLignes, int nbColonnes) {
         this.nbColonnes = nbColonnes;
         this.nbLignes = nbLignes;
         this.plat = new Case[nbLignes][nbColonnes];
         initPlateau();
-        this.casesAlignees = false;
     }
 
     /**
@@ -37,22 +35,14 @@ public class Plateau {
         }
     }
 
-    /**
-     * 
-     * 
-     */
-    private void etatPlateau() {
+    public boolean partieTerminee() {
+        boolean casesAlignees = false;
         for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
                 Case c = plat[i][j];
-                casesAlignees = c.victoireAlignement(this);
+                casesAlignees = c.victoireAlignement(this, plat);
             }
         }
-    }
-
-    public boolean partieTerminee() {
-        etatPlateau();
-
         return casesAlignees;
     }
 
