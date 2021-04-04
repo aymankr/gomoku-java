@@ -66,7 +66,7 @@ public class Partie {
                 plat.modifPlat(this, !estNoir, coupJ2);
                 finiParVictoire = plat.victoire();
             }
-            
+
             nbT--;
         }
 
@@ -79,6 +79,12 @@ public class Partie {
         affichageFin(finiParVictoire);
     }
 
+    /**
+     * Renvoyer le coup choisi par un joueur
+     * 
+     * @param s le coup
+     * @return retourner ce coup
+     */
     private String coupChoisi(String s) {
 
         out.println(s);
@@ -86,7 +92,7 @@ public class Partie {
         String coup = lireLigne();
 
         String msgCoupInterdit = "Coup choisi inconnu : " + coup + ", les coups autorisés sont de A à "
-                + (char) (65 + this.plat.getNbColonnes() - 1) + ", puis de 0 à " + (this.plat.getNbLignes() - 1);
+                + (char) (65 + this.plat.getNbColonnes()) + ", puis de 0 à " + (this.plat.getNbLignes());
 
         try {
             if (!coupValide(coup)) {
@@ -105,6 +111,12 @@ public class Partie {
         return coup;
     }
 
+    /**
+     * Vérifier si un coup est valide
+     * 
+     * @param coup le coup
+     * @return retourner vrai s'il est valide
+     */
     public boolean coupValide(String coup) {
         int lig = 0, col = 0;
         boolean chaineValide = (coup != null && coup.length() == 2 || coup.length() == 3);
@@ -113,10 +125,16 @@ public class Partie {
             col = plat.coupCol(coup);
         }
 
-        return chaineValide && lig >= 0 && lig < plat.getNbLignes() && col >= 0 && col < plat.getNbColonnes();
+        return chaineValide && lig >= 0 && lig <= plat.getNbLignes() && col >= 0 && col <= plat.getNbColonnes();
     }
 
-    private boolean coupDispo(String coup) {
+    /**
+     * Vérifier si un coup est disponible
+     * 
+     * @param coup le coup
+     * @return retourner vrai si disponible
+     */
+    public boolean coupDispo(String coup) {
         boolean dispo = true;
 
         for (String c : coupsJoues) {
@@ -128,7 +146,7 @@ public class Partie {
     }
 
     /**
-     * Afficher les coups joués par les joueurs en fin de partie
+     * Affichage de la fin de partie
      * 
      */
     private void affichageFin(boolean unGagnant) {

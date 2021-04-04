@@ -171,6 +171,7 @@ public class Jeu {
         }
 
         Partie p = new Partie(j1, j2, nbL, nbC, nbT);
+        
         p.gererPartie();
 
     }

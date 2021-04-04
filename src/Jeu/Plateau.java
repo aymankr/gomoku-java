@@ -23,7 +23,7 @@ public class Plateau {
     }
 
     /**
-     * Initialiser un plateau composé de cases et coordonnées
+     * Initialiser un plateau composé de cases
      * 
      */
     private void initPlateau() {
@@ -35,23 +35,28 @@ public class Plateau {
         }
     }
 
+    /**
+     * Vérifier s'il y a victoire lors d'un alignement de cinq cases de même Color
+     * 
+     * @return retourner vrai s'il y a victoire
+     */
     public boolean victoire() {
-        boolean casesAlignees = false;
+        boolean vict = false;
         int i = 0, j = 0;
         boolean fini = false;
 
         while (i < nbLignes && j < nbColonnes && !fini) {
             Case c = plat[i][j];
-            casesAlignees = c.victoireAlignement(this, plat);
+            vict = c.victoireAlignement(this, plat);
 
-            if (casesAlignees) {
+            if (vict) {
                 fini = true;
             }
             i++;
             j++;
         }
 
-        return casesAlignees;
+        return vict;
     }
 
     /**
@@ -94,11 +99,18 @@ public class Plateau {
         displayBar();
     }
 
+    /**
+     * Modifier le plateau lors d'un coup joué
+     * 
+     * @param partie  la partie
+     * @param estNoir vrai si le joueur est noir
+     * @param coup    le coup
+     */
     public void modifPlat(Partie partie, boolean estNoir, String coup) {
 
         int cC = coupCol(coup);
         int cL = coupLigne(coup);
-        Coordonnees c = new Coordonnees(cC, cL);
+        Coordonnees c = new Coordonnees(cL, cC);
 
         if (c.estDansPlateau(this)) {
             plat[cL][cC].setColor(estNoir);
@@ -117,6 +129,12 @@ public class Plateau {
         out.println(" +");
     }
 
+    /**
+     * Récolter le numéro de la colonne du coup joué
+     * 
+     * @param coup le coup
+     * @return retourner la colonne
+     */
     public int coupCol(String coup) {
         char charCol = coup.charAt(0);
         int colToInt = Coordonnees.carColVersNum(charCol, getNbColonnes());
@@ -124,6 +142,12 @@ public class Plateau {
         return colToInt;
     }
 
+    /**
+     * Récolter le numéro de la ligne du coup joué
+     * 
+     * @param coup le coup
+     * @return retourner la ligne
+     */
     public int coupLigne(String coup) {
         char charLig1 = coup.charAt(1);
         char charLig2;
@@ -145,7 +169,7 @@ public class Plateau {
      * @return retourner ce nombre
      */
     public int getNbLignes() {
-        return nbLignes;
+        return nbLignes - 1;
     }
 
     /**
@@ -154,6 +178,17 @@ public class Plateau {
      * @return retourner ce nombre
      */
     public int getNbColonnes() {
-        return nbColonnes;
+        return nbColonnes - 1;
+    }
+
+    /**
+     * Récolter une case du plateau
+     * 
+     * @param i ligne
+     * @param j colonne
+     * @return retourner la case
+     */
+    public Case getCase(int i, int j) {
+        return plat[i][j];
     }
 }

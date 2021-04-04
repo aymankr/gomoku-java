@@ -13,36 +13,51 @@ public enum Direction {
     NORD, SUD, EST, OUEST, NORD_EST, NORD_OUEST, SUD_EST, SUD_OUEST;
 
     /**
-     * Renvoie toutes les directions dans un tableau.
-     *
-     * @return tableau contenant toutes les directions.
+     * Renvoyer un tableau de directions complémentaires : NORD SUD
+     * 
+     * @return retourner ce tableau
      */
-    static Direction[] toutesDirections() {
-        Direction[] directions = { NORD, SUD, EST, OUEST, NORD_EST, NORD_OUEST, SUD_EST, SUD_OUEST };
-        return directions;
-    }
-
-    static Direction[] dirComplementaires1() {
+    private static Direction[] dirComplementaires1() {
         Direction[] directions = { NORD, SUD };
         return directions;
     }
 
-    static Direction[] dirComplementaires2() {
+    /**
+     * EST OUEST
+     * 
+     * @return retourner ce tableau
+     */
+    private static Direction[] dirComplementaires2() {
         Direction[] directions = { EST, OUEST };
         return directions;
     }
 
-    public static Direction[] dirComplementaires3() {
+    /**
+     * NORD EST et SUD OUEST
+     * 
+     * @return retourner ce tableau
+     */
+    private static Direction[] dirComplementaires3() {
         Direction[] directions = { NORD_EST, SUD_OUEST };
         return directions;
     }
 
-    public static Direction[] dirComplementaires4() {
+    /**
+     * NORD OUEST ET SUD EST
+     * 
+     * @return retourner ce tableau
+     */
+    private static Direction[] dirComplementaires4() {
         Direction[] directions = { NORD_OUEST, SUD_EST };
         return directions;
     }
 
-    static Direction[][] toutesComplementaires() {
+    /**
+     * Renvoyer l'ensemble des tableaux de directions complémentaires
+     * 
+     * @return retourner ce tableau
+     */
+    public static Direction[][] toutesComplementaires() {
         Direction[][] dirComp = { dirComplementaires1(), dirComplementaires2(), dirComplementaires3(),
                 dirComplementaires4() };
         return dirComp;

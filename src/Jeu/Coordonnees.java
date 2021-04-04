@@ -16,19 +16,26 @@ public class Coordonnees {
     private int ligne, colonne;
     private static final char CAR_PREMIERE_COLONNE = 'A';
 
+    /**
+     * Constructeur d'un Coordonnees
+     * 
+     * @param numLigne numéro de ligne
+     * @param numColonne numéro de colonne
+     */    
     public Coordonnees(int numLigne, int numColonne) {
         ligne = numLigne;
         colonne = numColonne;
     }
 
+    /**
+     * Convertir un caractère de colonne en numéro de colonne
+     * 
+     * @param nomCol le caractère
+     * @param nbC    nombre de colonne maximal
+     * @return retourner le numéro de colonne
+     */
     public static int carColVersNum(char nomCol, int nbC) {
-        final char carMin = CAR_PREMIERE_COLONNE;
-        final char carMax = (char) (CAR_PREMIERE_COLONNE + nbC);
 
-        if ((nomCol < carMin) || (nomCol > carMax)) {
-            throw new IllegalArgumentException("Appel incorrect à carVersNum, avec car = " + nomCol
-                    + ". Les valeurs autorisées sont les caractères entre " + carMin + " et " + carMax + ".");
-        }
         return nomCol - CAR_PREMIERE_COLONNE;
     }
 
@@ -38,38 +45,41 @@ public class Coordonnees {
      * @return retourne vrai ssi les coordonnées sont dans le plateau
      */
     public boolean estDansPlateau(Plateau p) {
-        return this.ligne >= 0 && this.colonne >= 0 && this.ligne < p.getNbLignes() && this.colonne < p.getNbColonnes();
+        return this.ligne >= 0 && this.colonne >= 0 && this.ligne <= p.getNbLignes()
+                && this.colonne <= p.getNbColonnes();
     }
 
+    /**
+     * Récolter un tableau de coordonnées alignés à la coordonnée actuelle suivant
+     * une direction choisie
+     * 
+     * @param d la direction
+     * @param p le plateau
+     * @return retourner ce tableau
+     */
     private Coordonnees[] suivantes(Direction d, Plateau p) {
         Coordonnees[] suiv = new Coordonnees[4];
-        int decal = 0;
+        int facteur_Decalage = 0;
 
         for (int i = 0; i < 4; i++) {
-            Coordonnees c = new Coordonnees(this.ligne + d.mvtVertic() + decal * d.mvtVertic(),
-                    this.colonne + d.mvtHoriz() + decal * d.mvtHoriz());
+            Coordonnees c = new Coordonnees(this.ligne + d.mvtVertic() + facteur_Decalage * d.mvtVertic(),
+                    this.colonne + d.mvtHoriz() + facteur_Decalage * d.mvtHoriz());
             if (c.estDansPlateau(p)) {
                 suiv[i] = new Coordonnees(c.ligne, c.colonne);
             }
-            decal++;
+            facteur_Decalage++;
         }
         return suiv;
     }
 
-    /*
-     * public Coordonnees[] coordCasesVois(Plateau p) { Coordonnees[] tabVoisins =
-     * new Coordonnees[32];
+    /**
+     * Récolter un tableau de coordonnées voisines sur les directions
+     * complémentaires
      * 
-     * int nbVoisines = 0;
-     * 
-     * for (Direction d : Direction.toutesDirections()) { Coordonnees[] suiv =
-     * suivantes(d, p);
-     * 
-     * for (int i = 0; i < 4; i++) { if (suiv[i] != null &&
-     * suiv[i].estDansPlateau(p)) { tabVoisins[nbVoisines] = suiv[i]; nbVoisines++;
-     * } } } return Arrays.copyOf(tabVoisins, nbVoisines); }
+     * @param p       le plateau
+     * @param tabComp tableau de directions complémentaires
+     * @return retourner le tableau de coordonnées
      */
-
     public Coordonnees[] voisComplementaires(Plateau p, Direction[] tabComp) {
         Coordonnees[] tabVoisins = new Coordonnees[8];
 
@@ -88,10 +98,20 @@ public class Coordonnees {
         return Arrays.copyOf(tabVoisins, nbVoisines);
     }
 
+    /**
+     * Récolter la ligne de la coordonnée actuelle
+     * 
+     * @return retourner le numéro de la ligne
+     */
     public int getLigne() {
         return ligne;
     }
 
+    /**
+     * Récolter la colonne
+     * 
+     * @return retourner la colonne
+     */
     public int getCol() {
         return colonne;
     }

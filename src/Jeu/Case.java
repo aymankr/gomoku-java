@@ -14,11 +14,21 @@ public class Case {
     private Coordonnees coord;
     private Color color;
 
+    /**
+     * Constructeur d'une case
+     * 
+     * @param c sa coordonnée
+     */
     public Case(Coordonnees c) {
         this.coord = c;
         this.color = Color.NONE;
     }
 
+    /**
+     * Affichage de la case actuelle suivant sa Color
+     * 
+     * @return retourner le caractère associé à sa Color
+     */
     public char getAffichable() {
         char g;
         switch (color) {
@@ -35,6 +45,11 @@ public class Case {
         return g;
     }
 
+    /**
+     * Modifier la Color d'une case si le joueur est Noir
+     * 
+     * @param estNoir vrai si le joueur est noir
+     */
     public void setColor(boolean estNoir) {
         if (estNoir) {
             this.color = Color.BLACK;
@@ -43,10 +58,20 @@ public class Case {
         }
     }
 
+    /**
+     * Les 3 types de cases possibles
+     */
     private enum Color {
         BLACK, WHITE, NONE
     };
 
+    /**
+     * Vérifier si pour un plateau, 5 cases de même Color sont alignées
+     * 
+     * @param p    le plateau
+     * @param plat les cases du plateau
+     * @return retourner vrai si alignement
+     */
     public boolean victoireAlignement(Plateau p, Case[][] plat) {
 
         int nbAlignees = 0;
@@ -62,9 +87,7 @@ public class Case {
                 Case caseTmp = plat[c.getLigne()][c.getCol()];
 
                 if (!caseTmp.color.equals(Color.NONE) && caseTmp.color.equals(this.color)) {
-
                     nbAlignees++;
-                    System.out.println(c.getLigne() + ", " + c.getCol() + " : " + nbAlignees);
                 }
             }
 
