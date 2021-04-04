@@ -32,19 +32,19 @@ public enum Direction {
         return directions;
     }
 
-    static Direction[] dirComplementaires3() {
+    public static Direction[] dirComplementaires3() {
         Direction[] directions = { NORD_EST, SUD_OUEST };
         return directions;
     }
 
-    static Direction[] dirComplementaires4() {
+    public static Direction[] dirComplementaires4() {
         Direction[] directions = { NORD_OUEST, SUD_EST };
         return directions;
     }
 
     static Direction[][] toutesComplementaires() {
         Direction[][] dirComp = { dirComplementaires1(), dirComplementaires2(), dirComplementaires3(),
-                dirComplementaires3() };
+                dirComplementaires4() };
         return dirComp;
     }
 

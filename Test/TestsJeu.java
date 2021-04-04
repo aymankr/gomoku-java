@@ -96,16 +96,22 @@ public class TestsJeu {
             new Coordonnees(4, 4)
         };
 
-        Coordonnees[] tabV = coupChoisi.coordCasesVois(plat);
+        //Coordonnees[] tabV = coupChoisi.coordCasesVois(plat);
         int i = 0;
-        
-        for (Coordonnees coord : tabV) {
+
+        /*for (Coordonnees coord : tabV) {
             assertTrue(coord.getLigne() == cVoisins[i].getLigne());
             assertTrue(coord.getCol() == cVoisins[i].getCol());
             i++;
-        }
-        Case c =  new Case(cVoisins[0]);
+        }*/
+        Case c = new Case(cVoisins[0]);
         boolean existeVictoire = plat.victoire();
+
+        Coordonnees[] voisC = coupChoisi.voisComplementaires(plat, Direction.dirComplementaires4());
+        for (Coordonnees coord : voisC) {
+            System.out.println(coord.getLigne() + ", " + coord.getCol());
+        }
+
     }
 
 }
