@@ -1,9 +1,9 @@
 package Jeu;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.TreeMap;
-import java.util.Set;
 
 /**
  *
@@ -14,7 +14,7 @@ public class Partie {
     private static Scanner in = new Scanner(System.in);
     private static PrintStream out = System.out;
 
-    private TreeMap<String, String> coupJoues;
+    private List<String> coupsJoues;
     private Joueur j1, j2;
     private Plateau plat;
     private int nbTours;
@@ -33,7 +33,7 @@ public class Partie {
         this.j2 = jb;
         this.nbTours = nbT;
         this.plat = new Plateau(nbLig, nbCol);
-        this.coupJoues = new TreeMap<>();
+        this.coupsJoues = new ArrayList<>();
     }
 
     /**
@@ -55,26 +55,28 @@ public class Partie {
             if (nbT % 2 == 0) {
 
                 String coupJ1 = coupChoisi("Coup de " + j1.getNom() + " :");
-                coupJoues.put(coupJ1, j1.getNom());
+                coupsJoues.add(j1.getNom() + " joue : " + coupJ1);
                 plat.modifPlat(this, estNoir, coupJ1);
+                finiParVictoire = plat.victoire();
 
             } else if (nbT % 2 == 1) {
 
                 String coupJ2 = coupChoisi("Coup de " + j2.getNom() + " :");
-                coupJoues.put(coupJ2, j2.getNom());
+                coupsJoues.add(j2.getNom() + " joue : " + coupJ2);
                 plat.modifPlat(this, !estNoir, coupJ2);
+                finiParVictoire = plat.victoire();
             }
-            finiParVictoire = plat.victoire();
+            
             nbT--;
         }
 
         if (finiParVictoire && nbT % 2 == 0) {
-            out.println("Victoire de " + j2.getNom() + " !");
+            out.println("\n" + "----------- > Victoire de " + j2.getNom() + " < -----------");
         } else if (finiParVictoire && nbT % 2 == 1) {
-            out.println("Victoire de " + j1.getNom() + " !");
+            out.println("\n" + "----------- > Victoire de " + j1.getNom() + " < -----------");
         }
 
-        afficherCoupsFin(finiParVictoire);
+        affichageFin(finiParVictoire);
     }
 
     private String coupChoisi(String s) {
@@ -84,8 +86,7 @@ public class Partie {
         String coup = lireLigne();
 
         String msgCoupInterdit = "Coup choisi inconnu : " + coup + ", les coups autorisés sont de A à "
-                + (char) (65 + this.getPlateau().getNbColonnes() - 1) + ", puis de 0 à "
-                + (this.getPlateau().getNbLignes() - 1);
+                + (char) (65 + this.plat.getNbColonnes() - 1) + ", puis de 0 à " + (this.plat.getNbLignes() - 1);
 
         try {
             if (!coupValide(coup)) {
@@ -116,39 +117,36 @@ public class Partie {
     }
 
     private boolean coupDispo(String coup) {
-        return coupJoues.get(coup) == null;
+        boolean dispo = true;
+
+        for (String c : coupsJoues) {
+            if (c.contains(coup)) {
+                dispo = false;
+            }
+        }
+        return dispo;
     }
 
     /**
      * Afficher les coups joués par les joueurs en fin de partie
      * 
      */
-    private void afficherCoupsFin(boolean unGagnant) {
+    private void affichageFin(boolean unGagnant) {
         String s = "";
         if (!unGagnant) {
-            s = "Pas de gagnants, ";
+            s = "Pas de gagnant, ";
         }
 
         int i = 1;
         out.println("\n" + s + "historique des coups : " + "\n");
-        Set<String> coups = coupJoues.keySet();
 
-        for (String c : coups) {
-            out.println("N°" + i + " --> " + coupJoues.get(c) + " joue " + c);
+        for (String c : coupsJoues) {
+            out.println("N°" + i + " --> " + c);
             i++;
         }
 
         out.println("\n" + "Plateau final : " + "\n");
         plat.display();
-    }
-
-    /**
-     * Récolter le plateau
-     * 
-     * @return retourner ce plateau
-     */
-    private Plateau getPlateau() {
-        return plat;
     }
 
     /**

@@ -22,6 +22,32 @@ public enum Direction {
         return directions;
     }
 
+    static Direction[] dirComplementaires1() {
+        Direction[] directions = { NORD, SUD };
+        return directions;
+    }
+
+    static Direction[] dirComplementaires2() {
+        Direction[] directions = { EST, OUEST };
+        return directions;
+    }
+
+    static Direction[] dirComplementaires3() {
+        Direction[] directions = { NORD_EST, SUD_OUEST };
+        return directions;
+    }
+
+    static Direction[] dirComplementaires4() {
+        Direction[] directions = { NORD_OUEST, SUD_EST };
+        return directions;
+    }
+
+    static Direction[][] toutesComplementaires() {
+        Direction[][] dirComp = { dirComplementaires1(), dirComplementaires2(), dirComplementaires3(),
+                dirComplementaires3() };
+        return dirComp;
+    }
+
     /**
      * Renvoie le nombre de cases parcourues horizontalement lorsqu'on suit cette
      * direction (0 pour Nord et Sud, -1 pour Ouest, 1 pour Est).

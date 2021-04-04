@@ -17,7 +17,7 @@ public class TestsJeu {
     private final int nbTours = 10;
     private final JoueurHumain j1 = new JoueurHumain("Robert", estNoir);
     private final JoueurHumain j2 = new JoueurHumain("Jean", !estNoir);
-    private final Plateau plat = new Plateau(nbLg, nbCol);
+    private Plateau plat = new Plateau(nbLg, nbCol);
 
     private final Partie p = new Partie(
             new JoueurHumain("Robert", estNoir),
@@ -37,9 +37,8 @@ public class TestsJeu {
         assertTrue(p.coupValide("F9"));
 
         // coups invalides
-
         assertFalse(p.coupValide("A23"));
-        //assertFalse(p.coupValide("T4"));
+        //assertFalse(p.coupValide("T4")); // envoi un message d'exception
     }
 
     /* @Test
@@ -56,7 +55,6 @@ public class TestsJeu {
         assertFalse(Jeu.nomValide("Jean-Luc"));
         assertFalse(Jeu.nomValide(null));
     } */
-    
     @Test
     public void testConversionCoup() {
         String[] coups = {"A2", "B0", "K8", "A0"};
@@ -80,11 +78,34 @@ public class TestsJeu {
     }
 
     @Test
-    public void testCoordVoisines() {
-        Coordonnees c = new Coordonnees(0, 5);
-        Coordonnees[] tab = c.coordCasesVois(plat);
-        for (Coordonnees co : tab) {
-            System.out.println(co.getLigne() + ", " + co.getCol());
+    public void testDetectePionsVoisins() {
+        Coordonnees coupChoisi = new Coordonnees(0, 0);
+
+        Coordonnees[] cVoisins = {
+            new Coordonnees(1, 0),
+            new Coordonnees(2, 0),
+            new Coordonnees(3, 0),
+            new Coordonnees(4, 0),
+            new Coordonnees(0, 1),
+            new Coordonnees(0, 2),
+            new Coordonnees(0, 3),
+            new Coordonnees(0, 4),
+            new Coordonnees(1, 1),
+            new Coordonnees(2, 2),
+            new Coordonnees(3, 3),
+            new Coordonnees(4, 4)
+        };
+
+        Coordonnees[] tabV = coupChoisi.coordCasesVois(plat);
+        int i = 0;
+        
+        for (Coordonnees coord : tabV) {
+            assertTrue(coord.getLigne() == cVoisins[i].getLigne());
+            assertTrue(coord.getCol() == cVoisins[i].getCol());
+            i++;
         }
+        Case c =  new Case(cVoisins[0]);
+        boolean existeVictoire = plat.victoire();
     }
+
 }

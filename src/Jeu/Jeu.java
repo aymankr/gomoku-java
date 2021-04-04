@@ -123,7 +123,7 @@ public class Jeu {
      * @param s le nom
      * @return retourner vrai si valide
      */
-    public static boolean nomValide(String s) {
+    private static boolean nomValide(String s) {
         boolean v = true;
         int i = 0;
         while (i < s.length() && v) {

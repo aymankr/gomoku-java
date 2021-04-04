@@ -19,10 +19,6 @@ public class Case {
         this.color = Color.NONE;
     }
 
-    public Color getColor() {
-        return this.color;
-    }
-
     public char getAffichable() {
         char g;
         switch (color) {
@@ -52,23 +48,29 @@ public class Case {
     };
 
     public boolean victoireAlignement(Plateau p, Case[][] plat) {
-        Coordonnees[] coordVois = coord.coordCasesVois(p);
+
         int nbAlignees = 0;
         boolean victoire = false;
 
-        for (Coordonnees c : coordVois) {
-            Case caseTmp = plat[c.getLigne()][c.getCol()];
+        for (Direction[] dirs : Direction.toutesComplementaires()) {
 
-            if (caseTmp.color.equals(this.color) && !caseTmp.color.equals(Color.NONE)) {
+            nbAlignees = 0;
+            Coordonnees[] coordVois = coord.voisComplementaires(p, dirs);
 
-                nbAlignees++;
+            for (Coordonnees c : coordVois) {
+
+                Case caseTmp = plat[c.getLigne()][c.getCol()];
+
+                if (caseTmp.color.equals(this.color) && !caseTmp.color.equals(Color.NONE)) {
+                    nbAlignees++;
+
+                }
             }
-
+            if (nbAlignees >= 4) {
+                victoire = true;
+            }
         }
 
-        if (nbAlignees >= 4) {
-            victoire = true;
-        }
         return victoire;
     }
 }

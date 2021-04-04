@@ -41,7 +41,7 @@ public class Coordonnees {
         return this.ligne >= 0 && this.colonne >= 0 && this.ligne < p.getNbLignes() && this.colonne < p.getNbColonnes();
     }
 
-    public Coordonnees[] suivantes(Direction d, Plateau p) {
+    private Coordonnees[] suivantes(Direction d, Plateau p) {
         Coordonnees[] suiv = new Coordonnees[4];
         int decal = 0;
 
@@ -56,12 +56,26 @@ public class Coordonnees {
         return suiv;
     }
 
-    public Coordonnees[] coordCasesVois(Plateau p) {
-        Coordonnees[] tabVoisins = new Coordonnees[32];
+    /*
+     * public Coordonnees[] coordCasesVois(Plateau p) { Coordonnees[] tabVoisins =
+     * new Coordonnees[32];
+     * 
+     * int nbVoisines = 0;
+     * 
+     * for (Direction d : Direction.toutesDirections()) { Coordonnees[] suiv =
+     * suivantes(d, p);
+     * 
+     * for (int i = 0; i < 4; i++) { if (suiv[i] != null &&
+     * suiv[i].estDansPlateau(p)) { tabVoisins[nbVoisines] = suiv[i]; nbVoisines++;
+     * } } } return Arrays.copyOf(tabVoisins, nbVoisines); }
+     */
+
+    public Coordonnees[] voisComplementaires(Plateau p, Direction[] tabComp) {
+        Coordonnees[] tabVoisins = new Coordonnees[8];
 
         int nbVoisines = 0;
 
-        for (Direction d : Direction.toutesDirections()) {
+        for (Direction d : tabComp) {
             Coordonnees[] suiv = suivantes(d, p);
 
             for (int i = 0; i < 4; i++) {
@@ -71,7 +85,6 @@ public class Coordonnees {
                 }
             }
         }
-
         return Arrays.copyOf(tabVoisins, nbVoisines);
     }
 
