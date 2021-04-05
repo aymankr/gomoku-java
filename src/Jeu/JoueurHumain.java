@@ -1,5 +1,7 @@
 package Jeu;
 
+import java.util.List;
+
 public class JoueurHumain extends Joueur {
 
     /**
@@ -10,6 +12,12 @@ public class JoueurHumain extends Joueur {
      */
     public JoueurHumain(String nom, boolean estNoir) {
         super(nom, estNoir);
+        this.estIA = false;
     }
 
+    @Override
+    public void jouer(String coup, List<String> listCoups, Plateau plat, Partie p, boolean estNoir) {
+        listCoups.add(coup);
+        plat.modifPlat(p, estNoir, coup);
+    }
 }

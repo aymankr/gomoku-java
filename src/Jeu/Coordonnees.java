@@ -39,6 +39,10 @@ public class Coordonnees {
         return nomCol - CAR_PREMIERE_COLONNE;
     }
 
+    public static char numVersCarCol(int numCol) {
+        return (char) (CAR_PREMIERE_COLONNE + numCol);
+    }
+
     /**
      * Indique si la coordonnée est dans le plateau
      *

@@ -48,6 +48,7 @@ public class Jeu {
                 break;
             case "a":
                 out.println("a");
+                menuPartie(true);
                 break;
             case "b":
                 menuPartie(false);

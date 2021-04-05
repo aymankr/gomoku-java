@@ -5,12 +5,15 @@
  */
 package Jeu;
 
+import java.util.List;
+
 /**
  *
  * @author A
  */
 abstract public class Joueur {
 
+    protected boolean estIA;
     private boolean estNoir;
     private String nom;
 
@@ -33,4 +36,10 @@ abstract public class Joueur {
     public String getNom() {
         return nom;
     }
+
+    public boolean estUneIA() {
+        return estIA;
+    }
+
+    abstract void jouer(String coup, List<String> listCoups, Plateau plat, Partie p, boolean estNoir);
 }

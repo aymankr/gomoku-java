@@ -54,16 +54,14 @@ public class Partie {
             out.println("\n" + "Tour " + tour + "\n");
             if (nbT % 2 == 0) {
 
-                String coupJ1 = coupChoisi("Coup de " + j1.getNom() + " :");
-                coupsJoues.add(j1.getNom() + " joue : " + coupJ1);
-                plat.modifPlat(this, estNoir, coupJ1);
+                String coupJ1 = demandeCoup(j1.estUneIA(), j1);
+                j1.jouer(coupJ1, coupsJoues, plat, this, estNoir);
                 finiParVictoire = plat.victoire();
 
             } else if (nbT % 2 == 1) {
 
-                String coupJ2 = coupChoisi("Coup de " + j2.getNom() + " :");
-                coupsJoues.add(j2.getNom() + " joue : " + coupJ2);
-                plat.modifPlat(this, !estNoir, coupJ2);
+                String coupJ2 = demandeCoup(j2.estUneIA(), j2);
+                j2.jouer(coupJ2, coupsJoues, plat, this, !estNoir);
                 finiParVictoire = plat.victoire();
             }
 
@@ -108,6 +106,15 @@ public class Partie {
             coup = coupChoisi(s);
         }
 
+        return coup;
+    }
+
+    private String demandeCoup(boolean estIA, Joueur j) {
+        String coup = "";
+
+        if (!estIA) {
+            coup = coupChoisi("Coup de " + j.getNom() + " :");
+        }
         return coup;
     }
 
