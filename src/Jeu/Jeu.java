@@ -7,6 +7,7 @@ package Jeu;
 
 import java.io.PrintStream;
 import java.util.Scanner;
+
 /**
  *
  * @author A
@@ -75,10 +76,9 @@ public class Jeu {
 
             n = Integer.parseInt(l);
 
-            if (demandeNbTours && n < 10) {
-                out.println("Le nombre de tours doit être au moins de 10, réessayez : ");
-            }
-            else if (n < 5 || n > 26) {
+            if (demandeNbTours && (n < 10 || n%2 == 1)) {
+                out.println("Le nombre de tours doit être pair et au moins de 10, réessayez : ");
+            } else if (!demandeNbTours && (n < 5 || n > 26)) {
                 out.println("Erreur de saisie : entier entre 5 et 26 attendu");
             }
 
@@ -87,11 +87,11 @@ public class Jeu {
             n = -1;
         }
 
-        if (demandeNbTours && n < 10) {
+        if (demandeNbTours && (n < 10 || n%2 == 1)) {
             n = questionInt(s, demandeNbTours);
         }
 
-        else if (n < 5 || n > 26) {
+        else if (!demandeNbTours && (n < 5 || n > 26)) {
             n = questionInt(s, demandeNbTours);
         }
 
@@ -153,7 +153,7 @@ public class Jeu {
      */
     private static void menuPartie(boolean estSeul) {
 
-        int nbT = questionInt("Combien de tours voulez vous jouer ? (minimum 10)" + "\n" + "\n", true);
+        int nbT = questionInt("Combien de tours voulez vous jouer ? (nombre pair >= 10)" + "\n" + "\n", true);
         int nbL = questionInt("Combien de lignes ? (entre 5 et 26)" + "\n" + "\n", false);
         int nbC = questionInt("Combien de colonnes ? (entre 5 et 26)" + "\n" + "\n", false);
 
@@ -170,7 +170,7 @@ public class Jeu {
         }
 
         Partie p = new Partie(j1, j2, nbL, nbC, nbT);
-        
+
         p.gererPartie();
 
     }

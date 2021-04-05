@@ -34,8 +34,7 @@ public class Coordonnees {
      * @param nbC    nombre de colonne maximal
      * @return retourner le numéro de colonne
      */
-    public static int carColVersNum(char nomCol, int nbC) {
-
+    public static int carColVersNum(char nomCol) {
         return nomCol - CAR_PREMIERE_COLONNE;
     }
 
@@ -45,8 +44,15 @@ public class Coordonnees {
      * @param numCol numéro
      * @return retourner le caractère
      */
-    public static char numVersCarCol(int numCol) {
+    public char numVersCarCol(int numCol) {
         return (char) (CAR_PREMIERE_COLONNE + numCol);
+    }
+
+    public String coordEnString() {
+        String lig = String.valueOf(ligne);
+        String col = "" + numVersCarCol(colonne);
+
+        return col + lig;
     }
 
     /**

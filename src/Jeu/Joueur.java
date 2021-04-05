@@ -5,7 +5,7 @@
  */
 package Jeu;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -55,5 +55,5 @@ abstract public class Joueur {
      * @param p la partie
      * @param estNoir vrai ssi le joueur est noir
      */    
-    abstract void jouer(String coup, List<String> listCoups, Plateau plat, Partie p, boolean estNoir);
+    abstract void jouer(String coup, ArrayList<String> listCoups, Plateau plat, Partie p, boolean estNoir);
 }

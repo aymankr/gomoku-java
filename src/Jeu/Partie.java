@@ -2,7 +2,6 @@ package Jeu;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -14,7 +13,7 @@ public class Partie {
     private static Scanner in = new Scanner(System.in);
     private static PrintStream out = System.out;
 
-    private List<String> coupsJoues;
+    private ArrayList<String> coupsJoues;
     private Joueur j1, j2;
     private Plateau plat;
     private int nbTours;
@@ -96,7 +95,7 @@ public class Partie {
                 + (char) (65 + this.plat.getNbColonnes()) + ", puis de 0 à " + (this.plat.getNbLignes());
 
         try {
-            
+
             if (!coupValide(coup)) {
                 out.println(msgCoupInterdit);
                 coup = coupChoisi(s, premierCoup);
@@ -107,7 +106,7 @@ public class Partie {
             }
 
             else if (!premierCoup && !coupJouable(coup)) {
-                
+
                 out.println(coup + " n'est pas jouable, il faut jouer à côté d’une case déjà occupée.");
                 coup = coupChoisi(s, premierCoup);
             }

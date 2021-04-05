@@ -47,17 +47,25 @@ public class Plateau {
 
         while (i < nbLignes && j < nbColonnes && !fini) {
             Case c = plat[i][j];
+
             vict = c.victoireAlignement(this, plat);
 
             if (vict) {
                 fini = true;
             }
-            c.actualiseCaseJouable(this, plat);
+
             i++;
             j++;
         }
-
         return vict;
+    }
+
+    public void actualiserPlateau() {
+        for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                plat[i][j].actualiseCaseJouable(this, plat);
+            }
+        }
     }
 
     /**
@@ -138,7 +146,7 @@ public class Plateau {
      */
     public int coupCol(String coup) {
         char charCol = coup.charAt(0);
-        int colToInt = Coordonnees.carColVersNum(charCol, getNbColonnes());
+        int colToInt = Coordonnees.carColVersNum(charCol);
 
         return colToInt;
     }
@@ -162,6 +170,14 @@ public class Plateau {
 
         lig = Integer.parseInt(nb);
         return lig;
+    }
+
+    public Coordonnees stringEnCoord(String coup) {
+
+        int lig = coupLigne(coup);
+        int col = coupCol(coup);
+
+        return new Coordonnees(lig, col);
     }
 
     /**
@@ -192,4 +208,5 @@ public class Plateau {
     public Case getCase(int i, int j) {
         return plat[i][j];
     }
+
 }

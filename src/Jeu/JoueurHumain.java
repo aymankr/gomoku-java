@@ -1,6 +1,6 @@
 package Jeu;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class JoueurHumain extends Joueur {
 
@@ -25,8 +25,9 @@ public class JoueurHumain extends Joueur {
      * @param estNoir vrai ssi le joueur est noir
      */
     @Override
-    public void jouer(String coup, List<String> listCoups, Plateau plat, Partie p, boolean estNoir) {
+    public void jouer(String coup, ArrayList<String> listCoups, Plateau plat, Partie p, boolean estNoir) {
         listCoups.add(coup);
         plat.modifPlat(p, estNoir, coup);
+        plat.actualiserPlateau();
     }
 }
