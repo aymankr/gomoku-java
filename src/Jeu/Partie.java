@@ -42,6 +42,7 @@ public class Partie {
      * 
      */
     public void gererPartie() {
+        boolean premierCoup = true;
         boolean estNoir = true;
         boolean finiParVictoire = false;
         int nbT = nbTours;
@@ -54,15 +55,17 @@ public class Partie {
             out.println("\n" + "Tour " + tour + "\n");
             if (nbT % 2 == 0) {
 
-                String coupJ1 = demandeCoup(j1.estUneIA(), j1);
+                String coupJ1 = demandeCoup(j1.estUneIA(), j1, premierCoup);
                 j1.jouer(coupJ1, coupsJoues, plat, this, estNoir);
                 finiParVictoire = plat.victoire();
+                premierCoup = false;
 
             } else if (nbT % 2 == 1) {
 
-                String coupJ2 = demandeCoup(j2.estUneIA(), j2);
+                String coupJ2 = demandeCoup(j2.estUneIA(), j2, premierCoup);
                 j2.jouer(coupJ2, coupsJoues, plat, this, !estNoir);
                 finiParVictoire = plat.victoire();
+                premierCoup = false;
             }
 
             nbT--;
@@ -83,7 +86,7 @@ public class Partie {
      * @param s le coup
      * @return retourner ce coup
      */
-    private String coupChoisi(String s) {
+    private String coupChoisi(String s, boolean premierCoup) {
 
         out.println(s);
         out.print("--> ");
@@ -93,27 +96,34 @@ public class Partie {
                 + (char) (65 + this.plat.getNbColonnes()) + ", puis de 0 à " + (this.plat.getNbLignes());
 
         try {
+            
             if (!coupValide(coup)) {
                 out.println(msgCoupInterdit);
-                coup = coupChoisi(s);
+                coup = coupChoisi(s, premierCoup);
 
             } else if (!coupDispo(coup)) {
                 out.println(coup + " a déjà été joué, réessayez.");
-                coup = coupChoisi(s);
+                coup = coupChoisi(s, premierCoup);
+            }
+
+            else if (!premierCoup && !coupJouable(coup)) {
+                
+                out.println(coup + " n'est pas jouable, il faut jouer à côté d’une case déjà occupée.");
+                coup = coupChoisi(s, premierCoup);
             }
         } catch (Exception e) {
             out.println(msgCoupInterdit);
-            coup = coupChoisi(s);
+            coup = coupChoisi(s, premierCoup);
         }
 
         return coup;
     }
 
-    private String demandeCoup(boolean estIA, Joueur j) {
+    private String demandeCoup(boolean estIA, Joueur j, boolean premierCoup) {
         String coup = "";
 
         if (!estIA) {
-            coup = coupChoisi("Coup de " + j.getNom() + " :");
+            coup = coupChoisi("Coup de " + j.getNom() + " :", premierCoup);
         }
         return coup;
     }
@@ -144,12 +154,19 @@ public class Partie {
     public boolean coupDispo(String coup) {
         boolean dispo = true;
 
-        for (String c : coupsJoues) {
-            if (c.contains(coup)) {
+        for (String cp : coupsJoues) {
+            if (cp.contains(coup)) {
                 dispo = false;
             }
         }
         return dispo;
+    }
+
+    public boolean coupJouable(String coup) {
+        int lig = plat.coupLigne(coup);
+        int col = plat.coupCol(coup);
+        Case c = plat.getCase(lig, col);
+        return c.estJouable();
     }
 
     /**

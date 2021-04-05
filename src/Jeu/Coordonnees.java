@@ -19,9 +19,9 @@ public class Coordonnees {
     /**
      * Constructeur d'un Coordonnees
      * 
-     * @param numLigne numéro de ligne
+     * @param numLigne   numéro de ligne
      * @param numColonne numéro de colonne
-     */    
+     */
     public Coordonnees(int numLigne, int numColonne) {
         ligne = numLigne;
         colonne = numColonne;
@@ -39,6 +39,12 @@ public class Coordonnees {
         return nomCol - CAR_PREMIERE_COLONNE;
     }
 
+    /**
+     * Convertir numéro de colonne en caractère
+     * 
+     * @param numCol numéro
+     * @return retourner le caractère
+     */
     public static char numVersCarCol(int numCol) {
         return (char) (CAR_PREMIERE_COLONNE + numCol);
     }
@@ -54,8 +60,37 @@ public class Coordonnees {
     }
 
     /**
-     * Récolter un tableau de coordonnées alignés à la coordonnée actuelle suivant
-     * une direction choisie
+     * Retourner la coordonnée suivante (sans décalage) selon la direction
+     * 
+     * @param d la direction
+     * @return retourner cette coordonnée
+     */
+    Coordonnees suivante(Direction d) {
+        return new Coordonnees(ligne + d.mvtVertic(), colonne + d.mvtHoriz());
+    }
+
+    /**
+     * Récolter un tableau de coordonnées voisines (8 maximum) à celle actuelle
+     * 
+     * @param p le plateau
+     * @return retourner ce tableau
+     */
+    Coordonnees[] voisines(Plateau p) {
+        Coordonnees[] voisines = new Coordonnees[8];
+        int nbVoisines = 0;
+        for (Direction d : Direction.toutes()) {
+            if (suivante(d).estDansPlateau(p)) {
+                voisines[nbVoisines] = suivante(d);
+                nbVoisines++;
+
+            }
+        }
+        return Arrays.copyOf(voisines, nbVoisines);
+    }
+
+    /**
+     * Récolter un tableau de coordonnées suivantes (jusqu'au décalage de 5) à la
+     * coordonnée actuelle suivant une direction choisie
      * 
      * @param d la direction
      * @param p le plateau
@@ -84,7 +119,7 @@ public class Coordonnees {
      * @param tabComp tableau de directions complémentaires
      * @return retourner le tableau de coordonnées
      */
-    public Coordonnees[] voisComplementaires(Plateau p, Direction[] tabComp) {
+    public Coordonnees[] voisinesComplementaires(Plateau p, Direction[] tabComp) {
         Coordonnees[] tabVoisins = new Coordonnees[8];
 
         int nbVoisines = 0;

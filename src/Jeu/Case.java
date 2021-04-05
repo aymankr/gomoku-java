@@ -13,6 +13,7 @@ public class Case {
 
     private Coordonnees coord;
     private Color color;
+    private boolean jouable;
 
     /**
      * Constructeur d'une case
@@ -22,6 +23,7 @@ public class Case {
     public Case(Coordonnees c) {
         this.coord = c;
         this.color = Color.NONE;
+        this.jouable = false;
     }
 
     /**
@@ -66,6 +68,25 @@ public class Case {
     };
 
     /**
+     * Actualisation d'une case si elle est jouable
+     * 
+     * @param p    le plateau
+     * @param plat les cases du plateau
+     */
+    public void actualiseCaseJouable(Plateau p, Case[][] plat) {
+        Case caseTmp;
+        Coordonnees[] cVoisines = coord.voisines(p);
+
+        for (Coordonnees c : cVoisines) {
+            caseTmp = plat[c.getLigne()][c.getCol()];
+
+            if (caseTmp.color.equals(Color.NONE) && !this.color.equals(Color.NONE)) {
+                caseTmp.jouable = true;
+            }
+        }
+    }
+
+    /**
      * Vérifier si pour un plateau, 5 cases de même Color sont alignées
      * 
      * @param p    le plateau
@@ -80,7 +101,7 @@ public class Case {
         for (Direction[] dirs : Direction.toutesComplementaires()) {
 
             nbAlignees = 0;
-            Coordonnees[] coordVois = coord.voisComplementaires(p, dirs);
+            Coordonnees[] coordVois = coord.voisinesComplementaires(p, dirs);
 
             for (Coordonnees c : coordVois) {
 
@@ -95,7 +116,10 @@ public class Case {
                 victoire = true;
             }
         }
-
         return victoire;
+    }
+
+    public boolean estJouable() {
+        return jouable;
     }
 }

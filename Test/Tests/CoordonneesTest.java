@@ -30,7 +30,6 @@ public class CoordonneesTest {
     @Test
     public void testCoordonneesVoisines() {
         // indice 0 : N-S, 1 : E-O, 2 : NE-SO, 3 : NO-SE
-        // Rappel : colonne commence à 1 et ligne à 0
         Direction[][] toutes = Direction.toutesComplementaires();
 
         Coordonnees coupChoisi = new Coordonnees(0, 0);
@@ -115,7 +114,7 @@ public class CoordonneesTest {
     }
 
     @Test
-    public void testConversionCharNum() {
+    public void testCharVersNum() {
 
         assertTrue(Coordonnees.carColVersNum('A', nbLg) == 0);
         assertTrue(Coordonnees.carColVersNum('B', nbLg) == 1);
@@ -123,5 +122,13 @@ public class CoordonneesTest {
         plat = new Plateau(26, 26);
         assertTrue(Coordonnees.carColVersNum('K', nbLg) == 10);
         assertTrue(Coordonnees.carColVersNum('Z', nbLg) == 25);
+    }
+
+    @Test
+    public void testNumVersChar() {
+
+        assertTrue(Coordonnees.numVersCarCol(0) == 'A');
+        assertTrue(Coordonnees.numVersCarCol(25) == 'Z');
+        assertTrue(Coordonnees.numVersCarCol(10) == 'K');
     }
 }

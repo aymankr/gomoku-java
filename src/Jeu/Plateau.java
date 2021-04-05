@@ -52,6 +52,7 @@ public class Plateau {
             if (vict) {
                 fini = true;
             }
+            c.actualiseCaseJouable(this, plat);
             i++;
             j++;
         }

@@ -12,6 +12,13 @@ public enum Direction {
 
     NORD, SUD, EST, OUEST, NORD_EST, NORD_OUEST, SUD_EST, SUD_OUEST;
 
+    static Direction[] toutes() {
+        Direction[] directions
+                = {NORD, SUD, EST, OUEST, NORD_EST, NORD_OUEST, SUD_EST, SUD_OUEST};
+        return directions;
+    }
+
+
     /**
      * Renvoyer un tableau de directions complémentaires : NORD SUD
      * 

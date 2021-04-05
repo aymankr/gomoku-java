@@ -37,9 +37,23 @@ abstract public class Joueur {
         return nom;
     }
 
+    /**
+     * Indique si le joueur actuel est une IA
+     * 
+     * @return retourne vrai ssi le joueur est une IA
+     */
     public boolean estUneIA() {
         return estIA;
     }
 
+    /**
+     * Méthode abstraite pour jouer un coup
+     * 
+     * @param coup le coup
+     * @param listCoups la liste des coups
+     * @param plat le plateau
+     * @param p la partie
+     * @param estNoir vrai ssi le joueur est noir
+     */    
     abstract void jouer(String coup, List<String> listCoups, Plateau plat, Partie p, boolean estNoir);
 }

@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Random;
 
 public class JoueurIA extends Joueur {
+
     /**
      * Constructeur d'un joueur IA
-     * 
-     * @param nom     le nom
+     *
+     * @param nom le nom
      * @param estNoir sa couleur
      */
     JoueurIA(String nom, boolean estNoir) {
@@ -15,6 +16,15 @@ public class JoueurIA extends Joueur {
         this.estIA = true;
     }
 
+    /**
+     * Jouer un coup pour une IA
+     *
+     * @param coup le coup
+     * @param listCoups la liste des coups
+     * @param plat le plateau
+     * @param p la partie
+     * @param estNoir vrai ssi le joueur est noir
+     */
     @Override
     public void jouer(String coup, List<String> listCoups, Plateau plat, Partie p, boolean estNoir) {
         Random r1 = new Random();
@@ -31,7 +41,7 @@ public class JoueurIA extends Joueur {
         String coupAleatoire = colonne + ligne;
         coup = coupAleatoire;
 
-        if (p.coupDispo(coup)) {
+        if (p.coupDispo(coup) && p.coupJouable(coup)) {
             System.out.println("L'IA a joué : " + coup + "\n");
             listCoups.add(coup);
             plat.modifPlat(p, estNoir, coup);

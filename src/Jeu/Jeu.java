@@ -47,12 +47,10 @@ public class Jeu {
                 boucler = false;
                 break;
             case "a":
-                out.println("a");
                 menuPartie(true);
                 break;
             case "b":
                 menuPartie(false);
-
                 break;
             default:
                 out.println("-> commande inconnue '" + commande + "'");
@@ -163,7 +161,7 @@ public class Jeu {
             System.out.print("Joueur 1, ");
         }
 
-        Joueur j1 = new JoueurHumain(questionString("quel est votre nom ?" + "\n" + "\n"), true);
+        Joueur j1 = new JoueurHumain(questionString("Quel est votre nom ?" + "\n" + "\n"), true);
         Joueur j2;
         if (!estSeul) {
             j2 = new JoueurHumain(questionString("Joueur 2, quel est votre nom ?" + "\n" + "\n"), false);
