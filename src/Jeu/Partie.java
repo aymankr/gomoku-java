@@ -1,4 +1,3 @@
-package Jeu;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ public class Partie {
 
     private static Scanner in = new Scanner(System.in);
     private static PrintStream out = System.out;
-
+    private static boolean finiParInterruption;
     private ArrayList<String> coupsJoues;
     private Joueur j1, j2;
     private Plateau plat;
@@ -33,8 +32,11 @@ public class Partie {
         this.nbTours = nbT;
         this.plat = new Plateau(nbLig, nbCol);
         this.coupsJoues = new ArrayList<>();
+        this.finiParInterruption = false;
     }
 
+
+    
     /**
      * Gestion d'une partie tour à tour ajout des coups joués dans l'affichage,
      * lorsque la partie est terminée afficher l'historique des coups
@@ -47,25 +49,24 @@ public class Partie {
         int nbT = nbTours;
         out.println("La partie dure " + nbT + " tours, à vous de jouer !" + "\n");
 
-        while (!finiParVictoire && nbT > 0) {
+        while (!finiParInterruption && !finiParVictoire && nbT > 0) {
             int tour = nbTours - nbT + 1;
 
             plat.display();
             out.println("\n" + "Tour " + tour + "\n");
             if (nbT % 2 == 0) {
 
-                String coupJ1 = demandeCoup(j1.estUneIA(), j1, premierCoup);
+                /*String coupJ1 = demandeCoup(j1.estUneIA(), j1, premierCoup);
                 j1.jouer(coupJ1, coupsJoues, plat, this, estNoir);
                 finiParVictoire = plat.victoire();
-                premierCoup = false;
+                premierCoup = false;**/
+                finiParVictoire = tourJoueur(j1,premierCoup,estNoir);
 
             } else if (nbT % 2 == 1) {
 
-                String coupJ2 = demandeCoup(j2.estUneIA(), j2, premierCoup);
-                j2.jouer(coupJ2, coupsJoues, plat, this, !estNoir);
-                finiParVictoire = plat.victoire();
-                premierCoup = false;
+                finiParVictoire = tourJoueur(j2,premierCoup,!estNoir);
             }
+            premierCoup = false;
 
             nbT--;
         }
@@ -77,6 +78,23 @@ public class Partie {
         }
 
         affichageFin(finiParVictoire);
+    }
+
+    /**
+     * Le tour
+     */
+    private boolean tourJoueur(Joueur j, boolean premCoup, boolean estNoir){
+        
+       
+        String coupJ = demandeCoup(j.estUneIA(), j, premCoup);
+        if(coupJ.equals("q")){
+            finiParInterruption=true;
+        }
+        else{
+        j.jouer(coupJ, coupsJoues, plat, this, estNoir);
+        }
+        return plat.victoire();
+        
     }
 
     /**
@@ -92,22 +110,14 @@ public class Partie {
         String coup = lireLigne();
 
         String msgCoupInterdit = "Coup choisi inconnu : " + coup + ", les coups autorisés sont de A à "
-                + (char) (65 + this.plat.getNbColonnes()) + ", puis de 0 à " + (this.plat.getNbLignes());
+                + (char) (65 + this.plat.getNbColonnes()) + ", puis de 0 à " + (this.plat.getNbLignes() + "\n" + "Ecrivez sous la forme : A1");
 
         try {
 
-            if (!coupValide(coup)) {
-                out.println(msgCoupInterdit);
-                coup = coupChoisi(s, premierCoup);
-
-            } else if (!coupDispo(coup)) {
-                out.println(coup + " a déjà été joué, réessayez.");
-                coup = coupChoisi(s, premierCoup);
+            if (coup.equals("q")){
+                out.println("Quitter");
             }
-
-            else if (!premierCoup && !coupJouable(coup)) {
-
-                out.println(coup + " n'est pas jouable, il faut jouer à côté d’une case déjà occupée.");
+            else if (!coupValide(coup, premierCoup)) {
                 coup = coupChoisi(s, premierCoup);
             }
         } catch (Exception e) {
@@ -118,6 +128,7 @@ public class Partie {
         return coup;
     }
 
+
     private String demandeCoup(boolean estIA, Joueur j, boolean premierCoup) {
         String coup = "";
 
@@ -127,13 +138,17 @@ public class Partie {
         return coup;
     }
 
+    
+
     /**
      * Vérifier si un coup est valide
      * 
      * @param coup le coup
      * @return retourner vrai s'il est valide
      */
-    public boolean coupValide(String coup) {
+    public boolean coupValide(String coup, boolean premierCoup) {
+        boolean b;
+
         int lig = 0, col = 0;
         boolean chaineValide = (coup != null && coup.length() == 2 || coup.length() == 3);
         if (chaineValide) {
@@ -141,32 +156,36 @@ public class Partie {
             col = plat.coupCol(coup);
         }
 
-        return chaineValide && lig >= 0 && lig <= plat.getNbLignes() && col >= 0 && col <= plat.getNbColonnes();
-    }
+        b = chaineValide && lig >= 0 && lig <= plat.getNbLignes() && col >= 0 && col <= plat.getNbColonnes();
 
-    /**
-     * Vérifier si un coup est disponible
-     * 
-     * @param coup le coup
-     * @return retourner vrai si disponible
-     */
-    public boolean coupDispo(String coup) {
-        boolean dispo = true;
+        if (!b){
+            out.println("Coup choisi inconnu : " + coup + ", les coups autorisés sont de A à "
+        + (char) (65 + this.plat.getNbColonnes()) + ", puis de 0 à " + (this.plat.getNbLignes() + "\n" + "Ecrivez sous la forme : A1"));
+        }
+        else{
+            for (String cp : coupsJoues) {
+                if (cp.contains(coup)) {
+                    b = false;
+                }
+            }
+            if (!b){
+                out.println(coup + " a déjà été joué, réessayez.");
+            }
+            else{
+                Case c = plat.getCase(lig, col);
+                if (!c.estJouable() && !premierCoup){
+                    b = false;
+                    out.println(coup + " n'est pas jouable, il faut jouer à côté d’une case déjà occupée.");
 
-        for (String cp : coupsJoues) {
-            if (cp.contains(coup)) {
-                dispo = false;
+                }
             }
         }
-        return dispo;
+        return b;
     }
 
-    public boolean coupJouable(String coup) {
-        int lig = plat.coupLigne(coup);
-        int col = plat.coupCol(coup);
-        Case c = plat.getCase(lig, col);
-        return c.estJouable();
-    }
+
+
+
 
     /**
      * Affichage de la fin de partie
@@ -196,6 +215,8 @@ public class Partie {
      * @return retourner la réponse
      */
     private static String lireLigne() {
-        return in.nextLine().trim();
+        String s = in.nextLine().trim();
+        
+        return s;
     }
 }

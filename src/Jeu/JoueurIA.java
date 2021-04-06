@@ -1,4 +1,4 @@
-package Jeu;
+
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -47,8 +47,8 @@ public class JoueurIA extends Joueur {
         int max2 = coupsPossibles.length;
         int indexAleatoire2 = r2.nextInt(max2);
         String cp = coupsPossibles[indexAleatoire2];
-
-            if (p.coupJouable(cp) && p.coupDispo(cp)) {
+        System.out.println(cp + "salut :)");
+            if (p.coupValide(cp, true)) {
                 System.out.println("L'IA a joué : " + cp + "\n");
                 listCoups.add(cp);
                 plat.modifPlat(p, estNoir, cp);

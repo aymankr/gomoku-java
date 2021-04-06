@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Jeu;
+
 
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -16,6 +16,7 @@ public class Jeu {
 
     private static Scanner in = new Scanner(System.in);
     private static PrintStream out = System.out;
+    
 
     /**
      * Le main
@@ -28,7 +29,7 @@ public class Jeu {
 
     /**
      * Affiche le menu principal au(x) joueur(s) et leur permet de choisir un mode
-     * de jeu
+     * de src
      * 
      * 
      */
@@ -53,6 +54,12 @@ public class Jeu {
             case "b":
                 menuPartie(false);
                 break;
+            case "test":
+            Joueur j1 = new JoueurHumain("mathieu", true);
+            Joueur j2 = new JoueurIA("IA", false);
+            Partie p = new Partie(j1, j2, 5, 5, 10);
+
+            p.gererPartie();
             default:
                 out.println("-> commande inconnue '" + commande + "'");
                 break;
@@ -60,6 +67,7 @@ public class Jeu {
         }
 
     }
+
 
     /**
      * Pose une question et attend un entier positif comme réponse
