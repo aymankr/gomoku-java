@@ -28,7 +28,27 @@ public class CoordonneesTest {
     );
 
     @Test
-    public void testCoordonneesVoisines() {
+    public void testVoisines() {
+
+        Coordonnees coupChoisi = new Coordonnees(0, 0);
+
+        Coordonnees[] cVoisins1 = {
+            new Coordonnees(1, 0),
+            new Coordonnees(0, 1),
+            new Coordonnees(1, 1)};
+
+        Coordonnees[] tabV1 = coupChoisi.voisines(plat);
+        int i1 = 0;
+
+        for (Coordonnees coord : tabV1) {
+            assertTrue(coord.getLigne() == cVoisins1[i1].getLigne());
+            assertTrue(coord.getCol() == cVoisins1[i1].getCol());
+            i1++;
+        }
+    }
+
+    @Test
+    public void testVoisinesComplementaires() {
         // indice 0 : N-S, 1 : E-O, 2 : NE-SO, 3 : NO-SE
         Direction[][] toutes = Direction.toutesComplementaires();
 
@@ -113,15 +133,13 @@ public class CoordonneesTest {
         assertFalse((new Coordonnees(-1, 2).estDansPlateau(plat)));
     }
 
-  /*  @Test
+    @Test
     public void testCharVersNum() {
 
-        assertTrue(Coordonnees.carColVersNum('A', nbLg) == 0);
-        assertTrue(Coordonnees.carColVersNum('B', nbLg) == 1);
-
-        plat = new Plateau(26, 26);
-        assertTrue(Coordonnees.carColVersNum('K', nbLg) == 10);
-        assertTrue(Coordonnees.carColVersNum('Z', nbLg) == 25);
+        assertTrue(Coordonnees.carColVersNum('A') == 0);
+        assertTrue(Coordonnees.carColVersNum('B') == 1);
+        assertTrue(Coordonnees.carColVersNum('K') == 10);
+        assertTrue(Coordonnees.carColVersNum('Z') == 25);
     }
 
     @Test
@@ -130,5 +148,16 @@ public class CoordonneesTest {
         assertTrue(Coordonnees.numVersCarCol(0) == 'A');
         assertTrue(Coordonnees.numVersCarCol(25) == 'Z');
         assertTrue(Coordonnees.numVersCarCol(10) == 'K');
-    }*/
+    }
+
+    @Test
+    public void testCoordEnString() {
+        Coordonnees c1 = new Coordonnees(0, 0);
+        Coordonnees c2 = new Coordonnees(4, 0);
+        Coordonnees c3 = new Coordonnees(2, 3);
+
+        assertTrue(c1.coordEnString().equals("A0"));
+        assertTrue(c2.coordEnString().equals("A4"));
+        assertTrue(c3.coordEnString().equals("D2"));
+    }
 }

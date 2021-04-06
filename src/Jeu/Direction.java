@@ -12,7 +12,12 @@ public enum Direction {
 
     NORD, SUD, EST, OUEST, NORD_EST, NORD_OUEST, SUD_EST, SUD_OUEST;
 
-    static Direction[] toutes() {
+    /**
+     * Renvoyer toutes les directions
+     * 
+     * @return retourner ce tableau
+     */
+    public static Direction[] toutes() {
         Direction[] directions
                 = {NORD, SUD, EST, OUEST, NORD_EST, NORD_OUEST, SUD_EST, SUD_OUEST};
         return directions;
@@ -76,7 +81,7 @@ public enum Direction {
      *
      * @return nombre de cases horizontales de cette direction
      */
-    int mvtHoriz() {
+    public int mvtHoriz() {
         int dh = -2;
         switch (this) {
         case NORD:
@@ -103,7 +108,7 @@ public enum Direction {
      *
      * @return nombre de cases verticales de cette direction
      */
-    int mvtVertic() {
+    public int mvtVertic() {
         int dv = -2;
         switch (this) {
         case EST:

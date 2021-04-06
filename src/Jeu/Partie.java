@@ -148,7 +148,7 @@ public class Partie {
      * Vérifier si un coup est disponible
      * 
      * @param coup le coup
-     * @return retourner vrai si disponible
+     * @return retourner vrai ssi disponible
      */
     public boolean coupDispo(String coup) {
         boolean dispo = true;
@@ -161,13 +161,19 @@ public class Partie {
         return dispo;
     }
 
+    /**
+     * Vérifier si la case du coup est jouable
+     * 
+     * @param coup le coup
+     * @return retourner vrai ssi jouable
+     */
     public boolean coupJouable(String coup) {
         int lig = plat.coupLigne(coup);
         int col = plat.coupCol(coup);
         Case c = plat.getCase(lig, col);
         return c.estJouable();
     }
-
+    
     /**
      * Affichage de la fin de partie
      * 

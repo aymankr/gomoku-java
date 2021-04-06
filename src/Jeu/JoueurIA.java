@@ -17,7 +17,8 @@ public class JoueurIA extends Joueur {
     }
 
     /**
-     * Jouer un coup pour une IA
+     * Jouer un coup pour une IA en cherchant une coordonnée voisine aléatoire d'une case
+     * déjà jouée, puis parmi ces voisines en choisir une qui est jouable
      *
      * @param coup      le coup
      * @param listCoups la liste des coups

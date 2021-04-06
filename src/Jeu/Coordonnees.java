@@ -44,10 +44,15 @@ public class Coordonnees {
      * @param numCol numéro
      * @return retourner le caractère
      */
-    public char numVersCarCol(int numCol) {
+    public static char numVersCarCol(int numCol) {
         return (char) (CAR_PREMIERE_COLONNE + numCol);
     }
 
+    /**
+     * Convertir des coordonnees en chaine
+     * 
+     * @return retourner la chaine
+     */
     public String coordEnString() {
         String lig = String.valueOf(ligne);
         String col = "" + numVersCarCol(colonne);
@@ -71,7 +76,7 @@ public class Coordonnees {
      * @param d la direction
      * @return retourner cette coordonnée
      */
-    Coordonnees suivante(Direction d) {
+    public Coordonnees suivante(Direction d) {
         return new Coordonnees(ligne + d.mvtVertic(), colonne + d.mvtHoriz());
     }
 
@@ -81,7 +86,7 @@ public class Coordonnees {
      * @param p le plateau
      * @return retourner ce tableau
      */
-    Coordonnees[] voisines(Plateau p) {
+    public Coordonnees[] voisines(Plateau p) {
         Coordonnees[] voisines = new Coordonnees[8];
         int nbVoisines = 0;
         for (Direction d : Direction.toutes()) {
