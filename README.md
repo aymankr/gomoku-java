@@ -1,6 +1,6 @@
-# Gomoku #
+<h1> Gomoku <h1>
 <br>
-## Répartition entre les classes ##
+<h2> Répartition entre classes </h2>
 <br>
 Notre méthode <strong>main()</strong> se trouve dans la classe <strong>Jeu</strong>. 
 Cette classe permet de créer une instance de la classe partie depuis la méthode <strong>menuPrincipal()</strong>  Une partie est constituée de deux joueurs et d'un plateau, entre autres attributs nécessaires au déroulement d'une partie.
@@ -10,10 +10,10 @@ Cette classe permet de créer une instance de la classe partie depuis la méthod
 <br>
 Un plateau est constitué, entre autres, d'un double tableau de <strong>Case</strong>. Une case a plusieurs propriétés, dont des coordonnées. Une coordonnée est l'association d'une ligne et d'une colonne. Cette classe est nécessaire pour, notamment, trouver des coordonnées voisines avec l'aide de la classe direction.
 <br>
-## Choix effectués ##
+<h2> Choix effectués </h2>
 <br>
 Pour effectuer ce programme, nous nous sommes inspirés des TP's que nous avons réalisés (le menu, par exemple, vient du TP bibliothèque) et du projet Towa (coordonnées, case...). 
-Nous avons tenté de réaliser un code cohérent en utilisant les notions apprises en cours : les classes abstraites, les List, la récursivité, et évidemment les tests unitaires.
+Nous avons <l>tenté</l> de réaliser un code cohérent en utilisant les notions apprises en cours : les classes abstraites, les List, la récursivité, et évidemment les tests unitaires.
 <br> 
 Nous n'avons pas créé de collection. En effet, bien que nous voulions appliquer toutes les nouvelles notions apprises, nous n'avons pas trouvé d'utilité à utiliser une collection dans cette situation.
   
