@@ -158,7 +158,6 @@ public class Partie {
 
         b = chaineValide && lig >= 0 && lig <= plat.getNbLignes() && col >= 0 && col <= plat.getNbColonnes();
 
-<<<<<<< HEAD
         if (!b){
             out.println("Coup choisi inconnu : " + coup + ", les coups autorisés sont de A à "
         + (char) (65 + this.plat.getNbColonnes()) + ", puis de 0 à " + (this.plat.getNbLignes() + "\n" + "Ecrivez sous la forme : A1"));
@@ -177,16 +176,6 @@ public class Partie {
                 if (!c.estJouable() && !premierCoup){
                     b = false;
                     out.println(coup + " n'est pas jouable, il faut jouer à côté d’une case déjà occupée.");
-=======
-    /**
-     * Vérifier si un coup est disponible
-     * 
-     * @param coup le coup
-     * @return retourner vrai ssi disponible
-     */
-    public boolean coupDispo(String coup) {
-        boolean dispo = true;
->>>>>>> e50556cc9d05274efd4c030f231c2fe373f7fccc
 
                 }
             }
@@ -194,26 +183,10 @@ public class Partie {
         return b;
     }
 
-<<<<<<< HEAD
 
 
 
 
-=======
-    /**
-     * Vérifier si la case du coup est jouable
-     * 
-     * @param coup le coup
-     * @return retourner vrai ssi jouable
-     */
-    public boolean coupJouable(String coup) {
-        int lig = plat.coupLigne(coup);
-        int col = plat.coupCol(coup);
-        Case c = plat.getCase(lig, col);
-        return c.estJouable();
-    }
-    
->>>>>>> e50556cc9d05274efd4c030f231c2fe373f7fccc
     /**
      * Affichage de la fin de partie
      * 
