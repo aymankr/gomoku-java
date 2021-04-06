@@ -5,9 +5,11 @@ Notre méthode <strong>main()</strong> se trouve dans la classe <strong>Jeu</str
 Cette classe permet de créer une instance de la classe partie depuis la méthode <strong>menuPrincipal()</strong>  Une partie est constituée de deux joueurs et d'un plateau, entre autres attributs nécessaires au déroulement d'une partie.
 <br>
 <strong>Joueur</strong> est une classe abstraite, mère de deux classes : 
-<strong>JoueurHumain</strong> et <strong>JoueurIA</strong>, ayant en commun la méthode abstraite <strong>jouer()</strong>. <strong>JoueurIA</strong> génère des coups dans cette méthode, qu'il va envoyer dans la classe partie. <strong>JoueurHumain</strong> saisit lui-même les coups qu'il veut jouer. 
+<strong>JoueurHumain</strong> et <strong>JoueurIA</strong>, ayant en commun la méthode abstraite <strong>jouer()</strong>. <strong>JoueurIA</strong> génère des coups dans cette méthode, qu'il va envoyer dans la classe <strong>Partie</strong>. <strong>JoueurHumain</strong> saisit lui-même les coups qu'il veut jouer. 
 <br>
-Un plateau est constitué, entre autres, d'un double tableau de <strong>Case</strong>. Une case a plusieurs propriétés, dont des coordonnées. Une coordonnée est l'association d'une ligne et d'une colonne. Cette classe est nécessaire pour, notamment, trouver des coordonnées voisines avec l'aide de la classe direction.
+Un <strong>Plateau</strong> est constitué, entre autres, d'un double tableau de <strong>Case</strong>. Une case a plusieurs propriétés, dont des coordonnées. La
+classe <strong>Coordonnees</strong> sert pour l'association d'une ligne et d'une colonne dans le plateau, et pour faciliter l'utilisation d'une <strong>Case</strong>. Cette classe est nécessaire pour, notamment, trouver des coordonnées voisines avec l'aide de la classe 
+<strong>Direction</strong>.
 <br>
 <h2> Choix effectués </h2>
 Pour effectuer ce programme, nous nous sommes inspirés des TP's que nous avons réalisés (le menu, par exemple, vient du TP bibliothèque) et du projet Towa (coordonnées, case...). 
