@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -16,7 +15,6 @@ public class Jeu {
 
     private static Scanner in = new Scanner(System.in);
     private static PrintStream out = System.out;
-    
 
     /**
      * Le main
@@ -55,11 +53,10 @@ public class Jeu {
                 menuPartie(false);
                 break;
             case "test":
-            Joueur j1 = new JoueurHumain("mathieu", true);
-            Joueur j2 = new JoueurIA("IA", false);
-            Partie p = new Partie(j1, j2, 5, 5, 10);
-
-            p.gererPartie();
+                Joueur j1 = new JoueurHumain("mathieu", true);
+                Joueur j2 = new JoueurIA("IA", false);
+                Partie p = new Partie(j1, j2, 5, 5, 10);
+                p.gererPartie();
             default:
                 out.println("-> commande inconnue '" + commande + "'");
                 break;
@@ -67,7 +64,6 @@ public class Jeu {
         }
 
     }
-
 
     /**
      * Pose une question et attend un entier positif comme réponse
@@ -84,7 +80,7 @@ public class Jeu {
 
             n = Integer.parseInt(l);
 
-            if (demandeNbTours && (n < 10 || n%2 == 1)) {
+            if (demandeNbTours && (n < 10 || n % 2 == 1)) {
                 out.println("Le nombre de tours doit être pair et au moins de 10, réessayez : ");
             } else if (!demandeNbTours && (n < 5 || n > 26)) {
                 out.println("Erreur de saisie : entier entre 5 et 26 attendu");
@@ -95,7 +91,7 @@ public class Jeu {
             n = -1;
         }
 
-        if (demandeNbTours && (n < 10 || n%2 == 1)) {
+        if (demandeNbTours && (n < 10 || n % 2 == 1)) {
             n = questionInt(s, demandeNbTours);
         }
 

@@ -25,7 +25,8 @@ public class JoueurHumain extends Joueur {
      * @param estNoir vrai ssi le joueur est noir
      */
     @Override
-    public void jouer(String coup, ArrayList<String> listCoups, Plateau plat, Partie p, boolean estNoir) {
+    public void jouer(String coup, ArrayList<String> listCoups, Plateau plat, Partie p, boolean estNoir,
+    boolean estIA) {
         listCoups.add(coup);
         plat.modifPlat(p, estNoir, coup);
         plat.actualiserPlateau();

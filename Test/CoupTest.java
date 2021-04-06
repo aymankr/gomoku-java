@@ -3,13 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tests;
 
-import Jeu.Case;
-import Jeu.Coordonnees;
-import Jeu.JoueurHumain;
-import Jeu.Partie;
-import Jeu.Plateau;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertFalse;
@@ -42,14 +36,14 @@ public class CoupTest {
     public void testCoupValide() {
 
         // coups valides
-        assertTrue(p.coupValide("A5"));
-        assertTrue(p.coupValide("D11"));
-        assertTrue(p.coupValide("A13"));
-        assertTrue(p.coupValide("F9"));
+        assertTrue(p.coupValide("A5",false,true));
+        assertTrue(p.coupValide("D11",false,true));
+        assertTrue(p.coupValide("A13",false,true));
+        assertTrue(p.coupValide("F9",false,true));
 
         // coups invalides
-        assertFalse(p.coupValide("A23"));
-        assertFalse(p.coupValide("C16"));
+        assertFalse(p.coupValide("A23",false,true));
+        assertFalse(p.coupValide("C16",false,true));
         //assertFalse(p.coupValide("T4")); // envoi un message d'exception
     }
 
@@ -76,31 +70,26 @@ public class CoupTest {
 
     @Test
     public void testCoupJouable() {
+        boolean estIA = true;
         ArrayList<String> coupsJoues = new ArrayList<>();
 
-        j1.jouer("B1", coupsJoues, plat, p, estNoir);
-        j2.jouer("A1", coupsJoues, plat, p, !estNoir);
-        j1.jouer("A2", coupsJoues, plat, p, estNoir);
-        j2.jouer("B0", coupsJoues, plat, p, !estNoir);
+        j1.jouer("B1", coupsJoues, plat, p, estNoir, estIA);
+        j2.jouer("A1", coupsJoues, plat, p, !estNoir, !estIA);
+        j1.jouer("A2", coupsJoues, plat, p, estNoir, estIA);
+        j2.jouer("B0", coupsJoues, plat, p, !estNoir, !estIA);
 
         assertTrue(plat.getCase(0, 0).estJouable());
         assertTrue(plat.getCase(1, 2).estJouable());
         assertTrue(plat.getCase(2, 1).estJouable());
         assertFalse(plat.getCase(2, 3).estJouable());
-    }
-
-    /*@Test
-    public void testNomJoueurValide() {
-
-        // noms valides
-        assertTrue(Jeu.nomValide(j1.getNom()));
-        assertTrue(Jeu.nomValide(j2.getNom()));
-        assertTrue(Jeu.nomValide("a"));
         
-        // noms invalides
+        plat.setCase(0,0).setColor(color.BLACK);
 
-        assertFalse(Jeu.nomValide("nomDu33"));
-        assertFalse(Jeu.nomValide("Jean-Luc"));
-        assertFalse(Jeu.nomValide(null));
-    } */
+        assertFalse(plat.getCase(0,0).estJouable());
+        assertTrue(plat.getCase(0,1).estJouable());
+        assertFalse(plat.getCase(2,2).estJouable());
+        }
+
+    
+
 }

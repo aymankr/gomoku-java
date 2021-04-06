@@ -21,6 +21,12 @@ public class Plateau {
         this.plat = new Case[nbLignes][nbColonnes];
         initPlateau();
     }
+    
+    /**
+     * Set la couleur d'une case (NB : Utile pour les tests)
+     *
+     */
+    
 
     /**
      * Initialiser un plateau composé de cases

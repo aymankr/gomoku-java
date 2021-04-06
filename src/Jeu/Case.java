@@ -41,7 +41,12 @@ public class Case {
             g = 'O';
             break;
         default:
-            g = ' ';
+            if (jouable){
+            g = '.';
+            }
+            else{
+                g=' ';
+            }
             break;
         }
         return g;

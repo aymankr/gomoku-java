@@ -1,5 +1,4 @@
 
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -17,8 +16,8 @@ public class JoueurIA extends Joueur {
     }
 
     /**
-     * Jouer un coup pour une IA en cherchant une coordonnée voisine aléatoire d'une case
-     * déjà jouée, puis parmi ces voisines en choisir une qui est jouable
+     * Jouer un coup pour une IA en cherchant une coordonnée voisine aléatoire d'une
+     * case déjà jouée, puis parmi ces voisines en choisir une qui est jouable
      *
      * @param coup      le coup
      * @param listCoups la liste des coups
@@ -27,8 +26,9 @@ public class JoueurIA extends Joueur {
      * @param estNoir   vrai ssi le joueur est noir
      */
     @Override
-    public void jouer(String coup, ArrayList<String> listCoups, Plateau plat, Partie p, boolean estNoir) {
-        
+    public void jouer(String coup, ArrayList<String> listCoups, Plateau plat, Partie p, boolean estNoir,
+            boolean estIA) {
+
         Random r1 = new Random();
         int max1 = listCoups.size();
         int indexAleatoire1 = r1.nextInt(max1);
@@ -48,39 +48,15 @@ public class JoueurIA extends Joueur {
         int max2 = coupsPossibles.length;
         int indexAleatoire2 = r2.nextInt(max2);
         String cp = coupsPossibles[indexAleatoire2];
-        System.out.println(cp + "salut :)");
-            if (p.coupValide(cp, true)) {
-                System.out.println("L'IA a joué : " + cp + "\n");
-                listCoups.add(cp);
-                plat.modifPlat(p, estNoir, cp);
-                plat.actualiserPlateau();
 
-            } else {
-                jouer(cp, listCoups, plat, p, estNoir);
-            }
+        if (p.coupValide(cp, true, estIA)) {
+            System.out.println("L'IA a joué : " + cp + "\n");
+            listCoups.add(cp);
+            plat.modifPlat(p, estNoir, cp);
+            plat.actualiserPlateau();
 
-        /*
-        Random r1 = new Random();
-        int ligneMax = plat.getNbLignes();
-        int ligneAleat = r1.nextInt(ligneMax);
-        String ligne = String.valueOf(ligneAleat);
-
-        Random r2 = new Random();
-        int colMax = plat.getNbColonnes();
-        int colAleat = r2.nextInt(colMax);
-        char charCol = Coordonnees.numVersCarCol(colAleat);
-        String colonne = "" + charCol;
-
-        String coupAleatoire = colonne + ligne;
-
-        coup = coupAleatoire;
-
-        if (p.coupJouable(coup) && p.coupDispo(coup)) {
-            System.out.println("L'IA a joué : " + coup + "\n");
-            listCoups.add(coup);
-            plat.modifPlat(p, estNoir, coup);
         } else {
-            jouer(coup, listCoups, plat, p, estNoir);
-        }*/
+            jouer(cp, listCoups, plat, p, estNoir, estIA);
+        }
     }
 }
