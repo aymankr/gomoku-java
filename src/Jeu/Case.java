@@ -119,6 +119,11 @@ public class Case {
         return victoire;
     }
 
+    /**
+     * Retourner si une case est jouable
+     * 
+     * @return retourne vrai ssi elle est jouable
+     */
     public boolean estJouable() {
         return jouable;
     }

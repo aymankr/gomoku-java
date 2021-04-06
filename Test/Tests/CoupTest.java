@@ -6,6 +6,7 @@
 package Tests;
 
 import Jeu.Case;
+import Jeu.Coordonnees;
 import Jeu.JoueurHumain;
 import Jeu.Partie;
 import Jeu.Plateau;
@@ -48,6 +49,7 @@ public class CoupTest {
 
         // coups invalides
         assertFalse(p.coupValide("A23"));
+        assertFalse(p.coupValide("C16"));
         //assertFalse(p.coupValide("T4")); // envoi un message d'exception
     }
 
@@ -76,13 +78,15 @@ public class CoupTest {
     public void testCoupJouable() {
         ArrayList<String> coupsJoues = new ArrayList<>();
 
-        Case premierCoup = plat.getCase(1, 1);
         j1.jouer("B1", coupsJoues, plat, p, estNoir);
-        j2.jouer("A1", coupsJoues, plat, p, estNoir);
+        j2.jouer("A1", coupsJoues, plat, p, !estNoir);
         j1.jouer("A2", coupsJoues, plat, p, estNoir);
-        j1.jouer("B0", coupsJoues, plat, p, estNoir);
+        j2.jouer("B0", coupsJoues, plat, p, !estNoir);
 
-        //assertTrue(p.coupJouable("A0"));
+        assertTrue(plat.getCase(0, 0).estJouable());
+        assertTrue(plat.getCase(1, 2).estJouable());
+        assertTrue(plat.getCase(2, 1).estJouable());
+        assertFalse(plat.getCase(2, 3).estJouable());
     }
 
     /*@Test
