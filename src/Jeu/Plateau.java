@@ -62,7 +62,7 @@ public class Plateau {
      * Afficher l'ensemble du plateau
      *
      */
-    public void display() {
+    public void affiche() {
 
         char col = 65;
         out.print("    ");
@@ -73,7 +73,7 @@ public class Plateau {
             col++;
         }
         out.println();
-        displayBar();
+        afficheBar();
 
         for (int r = 0; r < nbLignes; r++) {
             out.print(r);
@@ -89,14 +89,14 @@ public class Plateau {
             }
             out.println(" |");
         }
-        displayBar();
+        afficheBar();
     }
 
     /**
      * Afficher les délimitations haut et bas du plateau
      *
      */
-    private void displayBar() {
+    private void afficheBar() {
         out.print("  +");
         for (int c = 0; c < nbColonnes; c++) {
             out.print(" -");

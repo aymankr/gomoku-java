@@ -50,7 +50,7 @@ public class Partie {
         while (!finiParInterruption && !finiParVictoire && nbT > 0) {
             int tour = nbTours - nbT + 1;
 
-            plat.display();
+            plat.affiche();
             out.println("\n" + "Tour " + tour + "\n");
             if (nbT % 2 == 0) {
 
@@ -205,7 +205,7 @@ public class Partie {
         }
 
         out.println("\n" + "Plateau final : " + "\n");
-        plat.display();
+        plat.affiche();
     }
 
     /**
