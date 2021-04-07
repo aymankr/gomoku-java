@@ -1,5 +1,5 @@
 
-
+import java.util.ArrayList;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -27,33 +27,40 @@ public class VictoireTest {
 
     @Test
     public void testVictoire() {
+        boolean estIA = true;
+        ArrayList<String> coupsJoues = new ArrayList<>();
 
         // test alignement sur diagonale
-        plat.getCase(1, 1).setColor(estNoir);
-        plat.getCase(0, 0).setColor(estNoir);
-        plat.getCase(2, 2).setColor(estNoir);
-        plat.getCase(3, 3).setColor(!estNoir);
-        plat.getCase(4, 4).setColor(estNoir);
+        j1.jouer("A0", coupsJoues, plat, p, estNoir, !estIA);
+        j1.jouer("B1", coupsJoues, plat, p, estNoir, !estIA);
+        j1.jouer("C2", coupsJoues, plat, p, estNoir, !estIA);
+        j1.jouer("D3", coupsJoues, plat, p, estNoir, !estIA);
+        j1.jouer("E4", coupsJoues, plat, p, estNoir, !estIA);
 
-        boolean fini2 = plat.victoire();
-        assertFalse(fini2);
-
-        plat.getCase(3, 3).setColor(estNoir);
-        fini2 = plat.victoire();
+        boolean fini2 = plat.victoire("E4");
         assertTrue(fini2);
 
+        plat = new Plateau(10, 10);
+
         // sur ligne
-        plat.getCase(2, 3).setColor(estNoir);
-        plat.getCase(2, 0).setColor(estNoir);
-        plat.getCase(2, 1).setColor(estNoir);
-        plat.getCase(2, 2).setColor(!estNoir);
-        plat.getCase(2, 4).setColor(estNoir);
+        j1.jouer("A0", coupsJoues, plat, p, estNoir, !estIA);
+        j1.jouer("A1", coupsJoues, plat, p, estNoir, !estIA);
+        j1.jouer("A2", coupsJoues, plat, p, estNoir, !estIA);
+        j1.jouer("A3", coupsJoues, plat, p, estNoir, !estIA);
+        j1.jouer("A4", coupsJoues, plat, p, estNoir, !estIA);
 
-        boolean fini3 = plat.victoire();
-        assertFalse(fini3);
-
-        plat.getCase(2, 2).setColor(estNoir);
-        fini3 = plat.victoire();
+        boolean fini3 = plat.victoire("A4");
         assertTrue(fini3);
+
+        plat = new Plateau(10, 10);
+        // pas de victoire
+        j1.jouer("A0", coupsJoues, plat, p, estNoir, !estIA);
+        j1.jouer("A1", coupsJoues, plat, p, estNoir, !estIA);
+        j2.jouer("A2", coupsJoues, plat, p, !estNoir, !estIA);
+        j1.jouer("A3", coupsJoues, plat, p, estNoir, !estIA);
+        j1.jouer("A4", coupsJoues, plat, p, estNoir, !estIA);
+
+        boolean fini4 = plat.victoire("A4");
+        assertFalse(fini4);
     }
 }

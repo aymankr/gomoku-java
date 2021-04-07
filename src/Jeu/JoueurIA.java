@@ -33,7 +33,7 @@ public class JoueurIA extends Joueur {
         int max1 = listCoups.size();
         int indexAleatoire1 = r1.nextInt(max1);
         String coupExistant = listCoups.get(indexAleatoire1);
-        Coordonnees coordExistant = plat.stringEnCoord(coupExistant);
+        Coordonnees coordExistant = Coordonnees.convertCoord(coupExistant);
 
         Coordonnees[] voisines = coordExistant.voisines(plat);
         String[] coupsPossibles = new String[voisines.length];
@@ -48,12 +48,13 @@ public class JoueurIA extends Joueur {
         int max2 = coupsPossibles.length;
         int indexAleatoire2 = r2.nextInt(max2);
         String cp = coupsPossibles[indexAleatoire2];
+        
 
-        if (p.coupValide(cp, true, estIA)) {
+        if (p.coupValide(cp, false, estIA)) {
             System.out.println("L'IA a joué : " + cp + "\n");
             listCoups.add(cp);
             plat.modifPlat(p, estNoir, cp);
-            plat.actualiserPlateau();
+            plat.actualiserPlateau(cp);
 
         } else {
             jouer(cp, listCoups, plat, p, estNoir, estIA);

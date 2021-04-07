@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 import java.util.ArrayList;
 
 /**
@@ -26,6 +25,9 @@ abstract public class Joueur {
     public Joueur(String n, boolean estNoir) {
         this.estNoir = estNoir;
         this.nom = n;
+        if (estIA) {
+            nom = "IA";
+        }
     }
 
     /**
@@ -49,12 +51,12 @@ abstract public class Joueur {
     /**
      * Méthode abstraite pour jouer un coup
      * 
-     * @param coup le coup
+     * @param coup      le coup
      * @param listCoups la liste des coups
-     * @param plat le plateau
-     * @param p la partie
-     * @param estNoir vrai ssi le joueur est noir
-     */    
+     * @param plat      le plateau
+     * @param p         la partie
+     * @param estNoir   vrai ssi le joueur est noir
+     */
     abstract void jouer(String coup, ArrayList<String> listCoups, Plateau plat, Partie p, boolean estNoir,
-    boolean estIA);
+            boolean estIA);
 }

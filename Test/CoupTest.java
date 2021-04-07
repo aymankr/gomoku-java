@@ -32,26 +32,6 @@ public class CoupTest {
             nbTours
     );
 
-    @Test
-    public void testConversionCoup() {
-        String[] coups = {"A2", "B0", "K8", "A0"};
-
-        // A2
-        assertTrue(plat.coupCol(coups[0]) == 0);
-        assertTrue(plat.coupLigne(coups[0]) == 2);
-
-        // B0
-        assertTrue(plat.coupCol(coups[1]) == 1);
-        assertTrue(plat.coupLigne(coups[1]) == 0);
-
-        // K8
-        assertTrue(plat.coupCol(coups[2]) == 10);
-        assertTrue(plat.coupLigne(coups[2]) == 8);
-
-        // A0
-        assertTrue(plat.coupLigne(coups[3]) == 0);
-        assertTrue(plat.coupCol(coups[3]) == 0);
-    }
 
     @Test
     public void testCoupJouable() {

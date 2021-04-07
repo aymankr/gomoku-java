@@ -75,18 +75,29 @@ public class Partie {
     }
 
     /**
-     * Le tour
+     * Jouer le tour du joueur et renvoyer vrai s'il y a victoire après le coup joué
+     * 
+     * @param j le joueur
+     * @param premCoup vrai ssi premier coup
+     * @param estNoir vrai ssi noir
+     * @param estIA vrai ssi c'est une IA
+     * @return retourner vrai s'il y a victoire
      */
     private boolean tourJoueur(Joueur j, boolean premCoup, boolean estNoir, boolean estIA) {
-
-        String coupJ = demandeCoup(j.estUneIA(), j, premCoup);
-        if (coupJ.equals("q")) {
-            finiParInterruption = true;
+        String coupJ;
+        if (!estIA) {
+            coupJ = demandeCoup(estIA, j, premCoup);
+            if (coupJ.equals("q")) {
+                finiParInterruption = true;
+                coupJ = "A0";
+            } else {
+                j.jouer(coupJ, coupsJoues, plat, this, estNoir, estIA);
+            }
         } else {
-            j.jouer(coupJ, coupsJoues, plat, this, estNoir, estIA);
+            j.jouer(" ", coupsJoues, plat, this, estNoir, estIA);
+            coupJ = coupsJoues.get(coupsJoues.size() - 1);
         }
-        return plat.victoire();
-
+        return plat.victoire(coupJ);
     }
 
     /**
@@ -120,6 +131,14 @@ public class Partie {
         return coup;
     }
 
+    /**
+     * Demander un coup pour les joueurs humains
+     * 
+     * @param estIA vrai ssi c'est une IA
+     * @param j le joueur 
+     * @param premierCoup vrai ssi c'est le premier coup
+     * @return retourner le coup joué
+     */
     private String demandeCoup(boolean estIA, Joueur j, boolean premierCoup) {
         String coup = "";
 
@@ -137,15 +156,14 @@ public class Partie {
      */
     public boolean coupValide(String coup, boolean premierCoup, boolean estIA) {
         boolean b;
+        Coordonnees coord = null;
 
-        int lig = 0, col = 0;
         boolean chaineValide = (coup != null && coup.length() == 2 || coup.length() == 3);
         if (chaineValide) {
-            lig = plat.coupLigne(coup);
-            col = plat.coupCol(coup);
+            coord = Coordonnees.convertCoord(coup);
         }
 
-        b = chaineValide && lig >= 0 && lig <= plat.getNbLignes() && col >= 0 && col <= plat.getNbColonnes();
+        b = chaineValide && coord.estDansPlateau(plat);
 
         if (!b) {
             out.println("Coup choisi inconnu : " + coup + ", les coups autorisés sont de A à "
@@ -159,13 +177,10 @@ public class Partie {
             }
             if (!b && !estIA) {
                 out.println(coup + " a déjà été joué, réessayez.");
-            } else {
-                Case c = plat.getCase(lig, col);
-                if (!c.estJouable() && !premierCoup) {
-                    b = false;
-                    out.println(coup + " n'est pas jouable, il faut jouer à côté d’une case déjà occupée.");
+            } else if (!plat.getCase(coord.getLigne(), coord.getCol()).estJouable() && !premierCoup) {
+                b = false;
+                out.println(coup + " n'est pas jouable, il faut jouer à côté d’une case déjà occupée.");
 
-                }
             }
         }
         return b;

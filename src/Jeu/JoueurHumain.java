@@ -29,6 +29,6 @@ public class JoueurHumain extends Joueur {
     boolean estIA) {
         listCoups.add(coup);
         plat.modifPlat(p, estNoir, coup);
-        plat.actualiserPlateau();
+        plat.actualiserPlateau(coup);
     }
 }

@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 /**
  *
  * @author A
@@ -14,6 +13,7 @@ public class Case {
     private Coordonnees coord;
     private Color color;
     private boolean jouable;
+    private boolean gagnante;
 
     /**
      * Constructeur d'une case
@@ -41,11 +41,10 @@ public class Case {
             g = 'O';
             break;
         default:
-            if (jouable){
-            g = '.';
-            }
-            else{
-                g=' ';
+            if (jouable) {
+                g = '.';
+            } else {
+                g = ' ';
             }
             break;
         }
@@ -78,15 +77,19 @@ public class Case {
      * @param p    le plateau
      * @param plat les cases du plateau
      */
-    public void actualiseCaseJouable(Plateau p, Case[][] plat) {
-        Case caseTmp;
-        Coordonnees[] cVoisines = coord.voisines(p);
+    public void actualiseCaseJouable(Plateau p, Case[][] plat, String coup) {
+        Case cs;
 
-        for (Coordonnees c : cVoisines) {
-            caseTmp = plat[c.getLigne()][c.getCol()];
+        Coordonnees c = Coordonnees.convertCoord(coup);
+        cs = p.getCase(c.getLigne(), c.getCol());
 
-            if (caseTmp.color.equals(Color.NONE) && !this.color.equals(Color.NONE)) {
-                caseTmp.jouable = true;
+        Coordonnees[] cVoisines = c.voisines(p);
+
+        for (Coordonnees cv : cVoisines) {
+            Case cas = p.getCase(cv.getLigne(), cv.getCol());
+
+            if (cas.color.equals(Color.NONE) && !cs.color.equals(Color.NONE)) {
+                cas.jouable = true;
             }
         }
     }
@@ -98,10 +101,9 @@ public class Case {
      * @param plat les cases du plateau
      * @return retourner vrai si alignement
      */
-    public boolean victoireAlignement(Plateau p, Case[][] plat) {
+    public void setGagnante(Plateau p, Case[][] plat) {
 
         int nbAlignees = 0;
-        boolean victoire = false;
 
         for (Direction[] dirs : Direction.toutesComplementaires()) {
 
@@ -109,19 +111,16 @@ public class Case {
             Coordonnees[] coordVois = coord.voisinesComplementaires(p, dirs);
 
             for (Coordonnees c : coordVois) {
-
                 Case caseTmp = plat[c.getLigne()][c.getCol()];
 
                 if (!caseTmp.color.equals(Color.NONE) && caseTmp.color.equals(this.color)) {
                     nbAlignees++;
                 }
             }
-
             if (nbAlignees >= 4) {
-                victoire = true;
+                this.gagnante = true;
             }
         }
-        return victoire;
     }
 
     /**
@@ -131,5 +130,14 @@ public class Case {
      */
     public boolean estJouable() {
         return jouable;
+    }
+
+    /**
+     * Retourner si une case est jouable
+     * 
+     * @return retourne vrai ssi elle est jouable
+     */
+    public boolean estGagnante() {
+        return gagnante;
     }
 }

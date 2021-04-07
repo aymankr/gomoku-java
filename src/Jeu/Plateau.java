@@ -1,5 +1,4 @@
 
-
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -21,16 +20,10 @@ public class Plateau {
         this.plat = new Case[nbLignes][nbColonnes];
         initPlateau();
     }
-    
-    /**
-     * Set la couleur d'une case (NB : Utile pour les tests)
-     *
-     */
-    
 
     /**
      * Initialiser un plateau composé de cases
-     * 
+     *
      */
     private void initPlateau() {
         for (int i = 0; i < nbLignes; i++) {
@@ -43,40 +36,31 @@ public class Plateau {
 
     /**
      * Vérifier s'il y a victoire lors d'un alignement de cinq cases de même Color
-     * 
+     *
      * @return retourner vrai s'il y a victoire
      */
-    public boolean victoire() {
-        boolean vict = false;
-        int i = 0, j = 0;
-        boolean fini = false;
+    public boolean victoire(String coup) {
+        Coordonnees c = Coordonnees.convertCoord(coup);
 
-        while (i < nbLignes && j < nbColonnes && !fini) {
-            Case c = plat[i][j];
+        plat[c.getLigne()][c.getCol()].setGagnante(this, plat);
 
-            vict = c.victoireAlignement(this, plat);
-
-            if (vict) {
-                fini = true;
-            }
-
-            i++;
-            j++;
-        }
-        return vict;
+        return plat[c.getLigne()][c.getCol()].estGagnante();
     }
 
-    public void actualiserPlateau() {
-        for (int i = 0; i < nbLignes; i++) {
-            for (int j = 0; j < nbColonnes; j++) {
-                plat[i][j].actualiseCaseJouable(this, plat);
-            }
-        }
+    /**
+     * Actualiser le plateau après le coup joué
+     *
+     * @param coup le coup joué
+     */
+    public void actualiserPlateau(String coup) {
+        Coordonnees c = Coordonnees.convertCoord(coup);
+
+        plat[c.getLigne()][c.getCol()].actualiseCaseJouable(this, plat, coup);
     }
 
     /**
      * Afficher l'ensemble du plateau
-     * 
+     *
      */
     public void display() {
 
@@ -88,53 +72,29 @@ public class Plateau {
             out.print(" ");
             col++;
         }
-
         out.println();
-
         displayBar();
 
         for (int r = 0; r < nbLignes; r++) {
             out.print(r);
-
             if (r >= 10) {
                 out.print("|");
             } else {
                 out.print(" |");
             }
-
             for (int c = 0; c < nbColonnes; c++) {
                 out.print(" ");
                 out.print(plat[r][c].getAffichable());
 
             }
-
             out.println(" |");
-
         }
         displayBar();
     }
 
     /**
-     * Modifier le plateau lors d'un coup joué
-     * 
-     * @param partie  la partie
-     * @param estNoir vrai si le joueur est noir
-     * @param coup    le coup
-     */
-    public void modifPlat(Partie partie, boolean estNoir, String coup) {
-
-        int cC = coupCol(coup);
-        int cL = coupLigne(coup);
-        Coordonnees c = new Coordonnees(cL, cC);
-
-        if (c.estDansPlateau(this)) {
-            plat[cL][cC].setColor(estNoir);
-        }
-    }
-
-    /**
      * Afficher les délimitations haut et bas du plateau
-     * 
+     *
      */
     private void displayBar() {
         out.print("  +");
@@ -145,50 +105,21 @@ public class Plateau {
     }
 
     /**
-     * Récolter le numéro de la colonne du coup joué
-     * 
-     * @param coup le coup
-     * @return retourner la colonne
+     * Modifier le plateau lors d'un coup joué
+     *
+     * @param partie  la partie
+     * @param estNoir vrai si le joueur est noir
+     * @param coup    le coup
      */
-    public int coupCol(String coup) {
-        char charCol = coup.charAt(0);
-        int colToInt = Coordonnees.carColVersNum(charCol);
+    public void modifPlat(Partie partie, boolean estNoir, String coup) {
+        Coordonnees c = Coordonnees.convertCoord(coup);
 
-        return colToInt;
-    }
-
-    /**
-     * Récolter le numéro de la ligne du coup joué
-     * 
-     * @param coup le coup
-     * @return retourner la ligne
-     */
-    public int coupLigne(String coup) {
-        char charLig1 = coup.charAt(1);
-        char charLig2;
-        String nb = "" + charLig1;
-        int lig = 0;
-
-        if (coup.length() == 3) {
-            charLig2 = coup.charAt(2);
-            nb += "" + charLig2;
-        }
-
-        lig = Integer.parseInt(nb);
-        return lig;
-    }
-
-    public Coordonnees stringEnCoord(String coup) {
-
-        int lig = coupLigne(coup);
-        int col = coupCol(coup);
-
-        return new Coordonnees(lig, col);
+        plat[c.getLigne()][c.getCol()].setColor(estNoir);
     }
 
     /**
      * Récolter le nombre de lignes du plateau
-     * 
+     *
      * @return retourner ce nombre
      */
     public int getNbLignes() {
@@ -197,7 +128,7 @@ public class Plateau {
 
     /**
      * Récolter le nombre de colonnes
-     * 
+     *
      * @return retourner ce nombre
      */
     public int getNbColonnes() {
@@ -206,7 +137,7 @@ public class Plateau {
 
     /**
      * Récolter une case du plateau
-     * 
+     *
      * @param i ligne
      * @param j colonne
      * @return retourner la case

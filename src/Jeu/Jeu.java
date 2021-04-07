@@ -37,7 +37,7 @@ public class Jeu {
             out.println("* Menu");
             out.println("a) Jouer contre un bot");
             out.println("b) Jouer contre un humain");
-            out.println("q) quitter");
+            out.println("q) Quitter le jeu \n(lors d'une partie, quittez à tout moment avec 'q')");
             out.print("? ");
             String commande = lireLigne();
 
@@ -157,9 +157,9 @@ public class Jeu {
      */
     private static void menuPartie(boolean estSeul) {
 
-        int nbT = questionInt("Combien de tours voulez vous jouer ? (nombre pair >= 10)" + "\n" + "\n", true);
-        int nbL = questionInt("Combien de lignes ? (entre 5 et 26)" + "\n" + "\n", false);
-        int nbC = questionInt("Combien de colonnes ? (entre 5 et 26)" + "\n" + "\n", false);
+        int nbTours = questionInt("Combien de tours voulez vous jouer ? (nombre pair >= 10)" + "\n" + "\n", true);
+        int nbLig = questionInt("Combien de lignes ? (entre 5 et 26)" + "\n" + "\n", false);
+        int nbCol = questionInt("Combien de colonnes ? (entre 5 et 26)" + "\n" + "\n", false);
 
         if (!estSeul) {
             System.out.print("Joueur 1, ");
@@ -173,7 +173,7 @@ public class Jeu {
             j2 = new JoueurIA("IA", false);
         }
 
-        Partie p = new Partie(j1, j2, nbL, nbC, nbT);
+        Partie p = new Partie(j1, j2, nbLig, nbCol, nbTours);
 
         p.gererPartie();
 

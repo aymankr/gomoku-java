@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 import java.util.Arrays;
 
 /**
@@ -58,6 +57,31 @@ public class Coordonnees {
         String col = "" + numVersCarCol(colonne);
 
         return col + lig;
+    }
+
+    /**
+     * Convertir une chaine en coordonnées
+     * 
+     * @return retourner la chaine
+     */
+    public static Coordonnees convertCoord(String coup) {
+
+        char charCol = coup.charAt(0);
+        int colToInt = Coordonnees.carColVersNum(charCol);
+
+        char charLig1 = coup.charAt(1);
+        char charLig2;
+        String nb = "" + charLig1;
+        int lig = 0;
+
+        if (coup.length() == 3) {
+            charLig2 = coup.charAt(2);
+            nb += "" + charLig2;
+        }
+
+        lig = Integer.parseInt(nb);
+
+        return new Coordonnees(lig, colToInt);
     }
 
     /**
