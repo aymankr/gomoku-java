@@ -1,4 +1,6 @@
 <h1> Gomoku <h1>
+
+***Vous trouverez un rapport détaillé ci-dessus, renommé "rapport.pdf".***
 <h2> Répartition entre classes </h2>
 
 Notre méthode <strong>main()</strong> se trouve dans la classe <strong>Jeu</strong>. 
