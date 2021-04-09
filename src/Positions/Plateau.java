@@ -1,10 +1,12 @@
+package Positions;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
 /**
- *
- * @author A
+ * Classe permettant de rassembler les cases utilisant des coordonnées
+ * 
+ * @author Ayman KACHMAR, Mathieu RAKOTOARISOA
  */
 public class Plateau {
 
@@ -14,6 +16,12 @@ public class Plateau {
     private final int nbColonnes, nbLignes;
     private final Case[][] plat;
 
+    /**
+     * Constructeur d'un plateau
+     * 
+     * @param nbLignes nombre de lignes
+     * @param nbColonnes nombre de colonnes
+     */
     public Plateau(int nbLignes, int nbColonnes) {
         this.nbColonnes = nbColonnes;
         this.nbLignes = nbLignes;
@@ -35,8 +43,10 @@ public class Plateau {
     }
 
     /**
-     * Vérifier s'il y a victoire lors d'un alignement de cinq cases de même Color
+     * Vérifier s'il y a victoire lors d'un alignement de cinq cases de même
+     * Color
      *
+     * @param coup le coup
      * @return retourner vrai s'il y a victoire
      */
     public boolean victoire(String coup) {
@@ -107,11 +117,10 @@ public class Plateau {
     /**
      * Modifier le plateau lors d'un coup joué
      *
-     * @param partie  la partie
      * @param estNoir vrai si le joueur est noir
-     * @param coup    le coup
+     * @param coup le coup
      */
-    public void modifPlat(Partie partie, boolean estNoir, String coup) {
+    public void modifPlat(boolean estNoir, String coup) {
         Coordonnees c = Coordonnees.convertCoord(coup);
 
         plat[c.getLigne()][c.getCol()].setColor(estNoir);

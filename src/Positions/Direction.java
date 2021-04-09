@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package Positions;
 
 
 /**
- * Les 4 directions cardinales, ainsi que les 4 directions intermédiaires.
+ * Enumeration de directions
  */
 public enum Direction {
 
@@ -14,7 +10,7 @@ public enum Direction {
 
     /**
      * Renvoyer toutes les directions
-     * 
+     *
      * @return retourner ce tableau
      */
     public static Direction[] toutes() {
@@ -23,81 +19,80 @@ public enum Direction {
         return directions;
     }
 
-
     /**
      * Renvoyer un tableau de directions complémentaires : NORD SUD
-     * 
+     *
      * @return retourner ce tableau
      */
     private static Direction[] dirComplementaires1() {
-        Direction[] directions = { NORD, SUD };
+        Direction[] directions = {NORD, SUD};
         return directions;
     }
 
     /**
      * EST OUEST
-     * 
+     *
      * @return retourner ce tableau
      */
     private static Direction[] dirComplementaires2() {
-        Direction[] directions = { EST, OUEST };
+        Direction[] directions = {EST, OUEST};
         return directions;
     }
 
     /**
      * NORD EST et SUD OUEST
-     * 
+     *
      * @return retourner ce tableau
      */
     private static Direction[] dirComplementaires3() {
-        Direction[] directions = { NORD_EST, SUD_OUEST };
+        Direction[] directions = {NORD_EST, SUD_OUEST};
         return directions;
     }
 
     /**
      * NORD OUEST ET SUD EST
-     * 
+     *
      * @return retourner ce tableau
      */
     private static Direction[] dirComplementaires4() {
-        Direction[] directions = { NORD_OUEST, SUD_EST };
+        Direction[] directions = {NORD_OUEST, SUD_EST};
         return directions;
     }
 
     /**
      * Renvoyer l'ensemble des tableaux de directions complémentaires
-     * 
+     *
      * @return retourner ce tableau
      */
     public static Direction[][] toutesComplementaires() {
-        Direction[][] dirComp = { dirComplementaires1(), dirComplementaires2(), dirComplementaires3(),
-                dirComplementaires4() };
+        Direction[][] dirComp = {dirComplementaires1(), dirComplementaires2(), dirComplementaires3(),
+            dirComplementaires4()};
         return dirComp;
     }
 
     /**
-     * Renvoie le nombre de cases parcourues horizontalement lorsqu'on suit cette
-     * direction (0 pour Nord et Sud, -1 pour Ouest, 1 pour Est).
+     * Renvoie le nombre de cases parcourues horizontalement lorsqu'on suit
+     * cette direction (0 pour Nord et Sud, -1 pour Ouest, 1 pour Est).
      *
      * @return nombre de cases horizontales de cette direction
      */
     public int mvtHoriz() {
         int dh = -2;
         switch (this) {
-        case NORD:
-        case SUD:
-            dh = 0;
-            break;
-        case EST:
-        case NORD_EST:
-        case SUD_EST:
-            dh = 1;
-            break;
-        case OUEST:
-        case NORD_OUEST:
-        case SUD_OUEST:
-            dh = -1;
-            break;
+            case NORD:
+            case SUD:
+                dh = 0;
+                break;
+            case EST:
+            case NORD_EST:
+            case SUD_EST:
+                dh = 1;
+                break;
+            case OUEST:
+            case NORD_OUEST:
+            case SUD_OUEST:
+                dh = -1;
+                break;
         }
         return dh;
     }
@@ -111,20 +106,20 @@ public enum Direction {
     public int mvtVertic() {
         int dv = -2;
         switch (this) {
-        case EST:
-        case OUEST:
-            dv = 0;
-            break;
-        case NORD:
-        case NORD_EST:
-        case NORD_OUEST:
-            dv = -1;
-            break;
-        case SUD:
-        case SUD_EST:
-        case SUD_OUEST:
-            dv = 1;
-            break;
+            case EST:
+            case OUEST:
+                dv = 0;
+                break;
+            case NORD:
+            case NORD_EST:
+            case NORD_OUEST:
+                dv = -1;
+                break;
+            case SUD:
+            case SUD_EST:
+            case SUD_OUEST:
+                dv = 1;
+                break;
         }
         return dv;
     }

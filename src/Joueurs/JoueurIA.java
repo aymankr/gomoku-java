@@ -1,29 +1,41 @@
+package Joueurs;
 
+import Jeu.Partie;
+import Positions.Plateau;
+import Positions.Coordonnees;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Classe dérivée de Joueur pour créer une IA
+ *
+ * @author Ayman KACHMAR, Mathieu RAKOTOARISOA
+ */
 public class JoueurIA extends Joueur {
 
     /**
      * Constructeur d'un joueur IA
      *
-     * @param nom     le nom
+     * @param nom le nom
      * @param estNoir sa couleur
      */
-    JoueurIA(String nom, boolean estNoir) {
+    public JoueurIA(String nom, boolean estNoir) {
         super(nom, estNoir);
         this.estIA = true;
     }
 
     /**
-     * Jouer un coup pour une IA en cherchant une coordonnée voisine aléatoire d'une
-     * case déjà jouée, puis parmi ces voisines en choisir une qui est jouable
+     * Jouer un coup pour une IA en cherchant une coordonnée voisine aléatoire
+     * d'une case déjà jouée, puis parmi ces voisines en choisir une qui est
+     * jouable, tant qu'un coup jouable n'est pas trouvé, continuer
+     * récursivement
      *
-     * @param coup      le coup
+     * @param coup le coup
      * @param listCoups la liste des coups
-     * @param plat      le plateau
-     * @param p         la partie
-     * @param estNoir   vrai ssi le joueur est noir
+     * @param plat le plateau
+     * @param p la partie
+     * @param estNoir vrai ssi le joueur est noir
+     * @param estIA vrai ssi le joueur est une IA
      */
     @Override
     public void jouer(String coup, ArrayList<String> listCoups, Plateau plat, Partie p, boolean estNoir,
@@ -48,12 +60,11 @@ public class JoueurIA extends Joueur {
         int max2 = coupsPossibles.length;
         int indexAleatoire2 = r2.nextInt(max2);
         String cp = coupsPossibles[indexAleatoire2];
-        
 
         if (p.coupValide(cp, false, estIA)) {
             System.out.println("L'IA a joué : " + cp + "\n");
             listCoups.add(cp);
-            plat.modifPlat(p, estNoir, cp);
+            plat.modifPlat(estNoir, cp);
             plat.actualiserPlateau(cp);
 
         } else {

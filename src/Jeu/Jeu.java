@@ -1,15 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package Jeu;
 
+import Joueurs.JoueurIA;
+import Joueurs.JoueurHumain;
+import Joueurs.Joueur;
 import java.io.PrintStream;
 import java.util.Scanner;
 
 /**
- *
- * @author A
+ * Classe principale pour lancer le menu principal
+ * @author Ayman KACHMAR, Mathieu RAKOTOARISOA
  */
 public class Jeu {
 
@@ -26,10 +25,10 @@ public class Jeu {
     }
 
     /**
-     * Affiche le menu principal au(x) joueur(s) et leur permet de choisir un mode
-     * de src
-     * 
-     * 
+     * Affiche le menu principal au(x) joueur(s) et leur permet de choisir un
+     * mode de src
+     *
+     *
      */
     private static void menuPrincipal() {
         boolean boucler = true;
@@ -42,24 +41,24 @@ public class Jeu {
             String commande = lireLigne();
 
             switch (commande) {
-            case "q":
-                out.println("-> Bye.");
-                boucler = false;
-                break;
-            case "a":
-                menuPartie(true);
-                break;
-            case "b":
-                menuPartie(false);
-                break;
-            case "test":
-                Joueur j1 = new JoueurHumain("mathieu", true);
-                Joueur j2 = new JoueurIA("IA", false);
-                Partie p = new Partie(j1, j2, 5, 5, 10);
-                p.gererPartie();
-            default:
-                out.println("-> commande inconnue '" + commande + "'");
-                break;
+                case "q":
+                    out.println("-> Bye.");
+                    boucler = false;
+                    break;
+                case "a":
+                    menuPartie(true);
+                    break;
+                case "b":
+                    menuPartie(false);
+                    break;
+                case "test":
+                    Joueur j1 = new JoueurHumain("mathieu", true);
+                    Joueur j2 = new JoueurIA("IA", false);
+                    Partie p = new Partie(j1, j2, 5, 5, 10);
+                    p.gererPartie();
+                default:
+                    out.println("-> commande inconnue '" + commande + "'");
+                    break;
             }
         }
 
@@ -67,7 +66,7 @@ public class Jeu {
 
     /**
      * Pose une question et attend un entier positif comme réponse
-     * 
+     *
      * @param s la question posée
      * @return la réponse
      */
@@ -86,16 +85,14 @@ public class Jeu {
                 out.println("Erreur de saisie : entier entre 5 et 26 attendu");
             }
 
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             out.println("Erreur de saisie : entier attendu");
             n = -1;
         }
 
         if (demandeNbTours && (n < 10 || n % 2 == 1)) {
             n = questionInt(s, demandeNbTours);
-        }
-
-        else if (!demandeNbTours && (n < 5 || n > 26)) {
+        } else if (!demandeNbTours && (n < 5 || n > 26)) {
             n = questionInt(s, demandeNbTours);
         }
 
@@ -104,7 +101,7 @@ public class Jeu {
 
     /**
      * Pose une question et retourne la réponse de l'utilisateur (pour son nom)
-     * 
+     *
      * @param s la question
      * @return retourner la réponse
      */
@@ -122,7 +119,7 @@ public class Jeu {
 
     /**
      * Vérifier si un nom est valide
-     * 
+     *
      * @param s le nom
      * @return retourner vrai si valide
      */
@@ -141,7 +138,7 @@ public class Jeu {
 
     /**
      * Vérifier si un caractère est une lettre
-     * 
+     *
      * @param c le caractère
      * @return retourner vrai si valide
      */
@@ -150,9 +147,9 @@ public class Jeu {
     }
 
     /**
-     * Lancement du menu avant la partie, vérifie s'il y a un seul joueur humain ou
-     * deux pour créer l'IA ou non
-     * 
+     * Lancement du menu avant la partie, vérifie s'il y a un seul joueur humain
+     * ou deux pour créer l'IA ou non
+     *
      * @param estSeul vrai si le joueur humain est seul
      */
     private static void menuPartie(boolean estSeul) {

@@ -1,4 +1,9 @@
 
+import Jeu.Partie;
+import Joueurs.JoueurHumain;
+import Positions.Coordonnees;
+import Positions.Plateau;
+import Positions.Direction;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;

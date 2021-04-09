@@ -1,24 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package Positions;
 
 import java.util.Arrays;
 
 /**
- *
- * @author A
+ * Classe pour utiliser des coordonnées
+ * 
+ * @author Ayman KACHMAR, Mathieu RAKOTOARISOA
  */
 public class Coordonnees {
 
-    private int ligne, colonne;
+    private final int ligne;
+    private final int colonne;
     private static final char CAR_PREMIERE_COLONNE = 'A';
 
     /**
      * Constructeur d'un Coordonnees
-     * 
-     * @param numLigne   numéro de ligne
+     *
+     * @param numLigne numéro de ligne
      * @param numColonne numéro de colonne
      */
     public Coordonnees(int numLigne, int numColonne) {
@@ -28,9 +26,8 @@ public class Coordonnees {
 
     /**
      * Convertir un caractère de colonne en numéro de colonne
-     * 
+     *
      * @param nomCol le caractère
-     * @param nbC    nombre de colonne maximal
      * @return retourner le numéro de colonne
      */
     public static int carColVersNum(char nomCol) {
@@ -39,7 +36,7 @@ public class Coordonnees {
 
     /**
      * Convertir numéro de colonne en caractère
-     * 
+     *
      * @param numCol numéro
      * @return retourner le caractère
      */
@@ -49,7 +46,7 @@ public class Coordonnees {
 
     /**
      * Convertir des coordonnees en chaine
-     * 
+     *
      * @return retourner la chaine
      */
     public String coordEnString() {
@@ -61,7 +58,8 @@ public class Coordonnees {
 
     /**
      * Convertir une chaine en coordonnées
-     * 
+     *
+     * @param coup le coup
      * @return retourner la chaine
      */
     public static Coordonnees convertCoord(String coup) {
@@ -87,6 +85,7 @@ public class Coordonnees {
     /**
      * Indique si la coordonnée est dans le plateau
      *
+     * @param p le plateau
      * @return retourne vrai ssi les coordonnées sont dans le plateau
      */
     public boolean estDansPlateau(Plateau p) {
@@ -96,7 +95,7 @@ public class Coordonnees {
 
     /**
      * Retourner la coordonnée suivante (sans décalage) selon la direction
-     * 
+     *
      * @param d la direction
      * @return retourner cette coordonnée
      */
@@ -106,7 +105,7 @@ public class Coordonnees {
 
     /**
      * Récolter un tableau de coordonnées voisines (8 maximum) à celle actuelle
-     * 
+     *
      * @param p le plateau
      * @return retourner ce tableau
      */
@@ -124,9 +123,9 @@ public class Coordonnees {
     }
 
     /**
-     * Récolter un tableau de coordonnées suivantes (jusqu'au décalage de 5) à la
-     * coordonnée actuelle suivant une direction choisie
-     * 
+     * Récolter un tableau de coordonnées suivantes (jusqu'au décalage de 5) à
+     * la coordonnée actuelle suivant une direction choisie
+     *
      * @param d la direction
      * @param p le plateau
      * @return retourner ce tableau
@@ -149,8 +148,8 @@ public class Coordonnees {
     /**
      * Récolter un tableau de coordonnées voisines sur les directions
      * complémentaires
-     * 
-     * @param p       le plateau
+     *
+     * @param p le plateau
      * @param tabComp tableau de directions complémentaires
      * @return retourner le tableau de coordonnées
      */
@@ -174,7 +173,7 @@ public class Coordonnees {
 
     /**
      * Récolter la ligne de la coordonnée actuelle
-     * 
+     *
      * @return retourner le numéro de la ligne
      */
     public int getLigne() {
@@ -183,7 +182,7 @@ public class Coordonnees {
 
     /**
      * Récolter la colonne
-     * 
+     *
      * @return retourner la colonne
      */
     public int getCol() {

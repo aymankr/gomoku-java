@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 
+import Jeu.Partie;
+import Joueurs.JoueurHumain;
+import Positions.Plateau;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertFalse;

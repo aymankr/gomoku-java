@@ -1,30 +1,37 @@
+package Jeu;
 
+import Joueurs.Joueur;
+import Positions.Coordonnees;
+import Positions.Plateau;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
+ * Classe permettant de créer et gérer une partie composée de joueurs, du
+ * plateau et du nombre de tours
  *
- * @author A
+ * @author Ayman KACHMAR, Mathieu RAKOTOARISOA
  */
 public class Partie {
 
     private static Scanner in = new Scanner(System.in);
     private static PrintStream out = System.out;
     private static boolean finiParInterruption;
-    private ArrayList<String> coupsJoues;
-    private Joueur j1, j2;
-    private Plateau plat;
-    private int nbTours;
+    private final ArrayList<String> coupsJoues;
+    private final Joueur j1;
+    private final Joueur j2;
+    private final Plateau plat;
+    private final int nbTours;
 
     /**
      * Constructeur d'une partie
-     * 
-     * @param ja    joueur A
-     * @param jb    joueur B
+     *
+     * @param ja joueur A
+     * @param jb joueur B
      * @param nbLig nombre de lignes
      * @param nbCol nombre de colonnes
-     * @param nbT   nombre de tours
+     * @param nbT nombre de tours
      */
     public Partie(Joueur ja, Joueur jb, int nbLig, int nbCol, int nbT) {
         this.j1 = ja;
@@ -38,7 +45,7 @@ public class Partie {
     /**
      * Gestion d'une partie tour à tour ajout des coups joués dans l'affichage,
      * lorsque la partie est terminée afficher l'historique des coups
-     * 
+     *
      */
     public void gererPartie() {
         boolean premierCoup = true;
@@ -54,29 +61,24 @@ public class Partie {
             out.println("\n" + "Tour " + tour + "\n");
             if (nbT % 2 == 0) {
 
-                finiParVictoire = tourJoueur(j1, premierCoup, estNoir, j1.estIA);
+                finiParVictoire = tourJoueur(j1, premierCoup, estNoir, j1.estUneIA());
 
             } else if (nbT % 2 == 1) {
 
-                finiParVictoire = tourJoueur(j2, premierCoup, !estNoir, j2.estIA);
+                finiParVictoire = tourJoueur(j2, premierCoup, !estNoir, j2.estUneIA());
             }
             premierCoup = false;
 
             nbT--;
         }
 
-        if (finiParVictoire && nbT % 2 == 0) {
-            out.println("\n" + "----------- > Victoire de " + j2.getNom() + " < -----------");
-        } else if (finiParVictoire && nbT % 2 == 1) {
-            out.println("\n" + "----------- > Victoire de " + j1.getNom() + " < -----------");
-        }
-
-        affichageFin(finiParVictoire);
+        affichageFin(finiParVictoire, j1, j2, nbT);
     }
 
     /**
-     * Jouer le tour du joueur et renvoyer vrai s'il y a victoire après le coup joué
-     * 
+     * Jouer le tour du joueur et renvoyer vrai s'il y a victoire après le coup
+     * joué
+     *
      * @param j le joueur
      * @param premCoup vrai ssi premier coup
      * @param estNoir vrai ssi noir
@@ -102,7 +104,7 @@ public class Partie {
 
     /**
      * Renvoyer le coup choisi par un joueur
-     * 
+     *
      * @param s le coup
      * @return retourner ce coup
      */
@@ -133,9 +135,9 @@ public class Partie {
 
     /**
      * Demander un coup pour les joueurs humains
-     * 
+     *
      * @param estIA vrai ssi c'est une IA
-     * @param j le joueur 
+     * @param j le joueur
      * @param premierCoup vrai ssi c'est le premier coup
      * @return retourner le coup joué
      */
@@ -150,8 +152,10 @@ public class Partie {
 
     /**
      * Vérifier si un coup est valide
-     * 
+     *
      * @param coup le coup
+     * @param premierCoup vrai ssi le coup est le premier
+     * @param estIA vrai ssi c'est une IA
      * @return retourner vrai s'il est valide
      */
     public boolean coupValide(String coup, boolean premierCoup, boolean estIA) {
@@ -188,20 +192,31 @@ public class Partie {
 
     /**
      * Affichage de la fin de partie
-     * 
+     *
      */
-    private void affichageFin(boolean unGagnant) {
+    private void affichageFin(boolean unGagnant, Joueur j1, Joueur j2, int nbT) {
         String s = "";
         if (!unGagnant) {
             s = "Pas de gagnant, ";
+        } else {
+            if (nbT % 2 == 0) {
+                out.println("\n" + "----------- > Victoire de " + j2.getNom() + " < -----------");
+            } else if (nbT % 2 == 1) {
+                out.println("\n" + "----------- > Victoire de " + j1.getNom() + " < -----------");
+            }
         }
 
         int i = 1;
         out.println("\n" + s + "historique des coups : " + "\n");
 
         for (String c : coupsJoues) {
-            out.println("N°" + i + " --> " + c);
-            i++;
+            if (i % 2 == 1) {
+                out.println("N°" + i + " --> " + j1.getNom() + " a joué " + c);
+                i++;
+            } else if (i % 2 == 0) {
+                out.println("N°" + i + " --> " + j2.getNom() + " a joué " + c);
+                i++;
+            }
         }
 
         out.println("\n" + "Plateau final : " + "\n");
@@ -210,7 +225,7 @@ public class Partie {
 
     /**
      * Lire l'entrée de l'utilisateur
-     * 
+     *
      * @return retourner la réponse
      */
     private static String lireLigne() {

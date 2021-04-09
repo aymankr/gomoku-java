@@ -1,23 +1,20 @@
-/*.........
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package Positions;
 
 /**
- *
- * @author A
+ * Classe permettant d'utiliser des cases
+ * 
+ * @author Ayman KACHMAR, Mathieu RAKOTOARISOA
  */
 public class Case {
 
-    private Coordonnees coord;
+    private final Coordonnees coord;
     private Color color;
     private boolean jouable;
     private boolean gagnante;
 
     /**
      * Constructeur d'une case
-     * 
+     *
      * @param c sa coordonnée
      */
     public Case(Coordonnees c) {
@@ -28,32 +25,32 @@ public class Case {
 
     /**
      * Affichage de la case actuelle suivant sa Color
-     * 
+     *
      * @return retourner le caractère associé à sa Color
      */
     public char getAffichable() {
         char g;
         switch (color) {
-        case BLACK:
-            g = 'X';
-            break;
-        case WHITE:
-            g = 'O';
-            break;
-        default:
-            if (jouable) {
-                g = '.';
-            } else {
-                g = ' ';
-            }
-            break;
+            case BLACK:
+                g = 'X';
+                break;
+            case WHITE:
+                g = 'O';
+                break;
+            default:
+                if (jouable) {
+                    g = '.';
+                } else {
+                    g = ' ';
+                }
+                break;
         }
         return g;
     }
 
     /**
      * Modifier la Color d'une case si le joueur est Noir
-     * 
+     *
      * @param estNoir vrai si le joueur est noir
      */
     public void setColor(boolean estNoir) {
@@ -73,9 +70,10 @@ public class Case {
 
     /**
      * Actualisation d'une case si elle est jouable
-     * 
-     * @param p    le plateau
+     *
+     * @param p le plateau
      * @param plat les cases du plateau
+     * @param coup le coup
      */
     public void actualiseCaseJouable(Plateau p, Case[][] plat, String coup) {
         Case cs;
@@ -96,10 +94,9 @@ public class Case {
 
     /**
      * Vérifier si pour un plateau, 5 cases de même Color sont alignées
-     * 
-     * @param p    le plateau
+     *
+     * @param p le plateau
      * @param plat les cases du plateau
-     * @return retourner vrai si alignement
      */
     public void setGagnante(Plateau p, Case[][] plat) {
 
@@ -125,7 +122,7 @@ public class Case {
 
     /**
      * Retourner si une case est jouable
-     * 
+     *
      * @return retourne vrai ssi elle est jouable
      */
     public boolean estJouable() {
@@ -134,7 +131,7 @@ public class Case {
 
     /**
      * Retourner si une case est jouable
-     * 
+     *
      * @return retourne vrai ssi elle est jouable
      */
     public boolean estGagnante() {
