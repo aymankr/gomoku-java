@@ -99,7 +99,7 @@ public class Coordonnees {
      * @param d la direction
      * @return retourner cette coordonnée
      */
-    public Coordonnees suivante(Direction d) {
+    private Coordonnees suivante(Direction d) {
         return new Coordonnees(ligne + d.mvtVertic(), colonne + d.mvtHoriz());
     }
 
