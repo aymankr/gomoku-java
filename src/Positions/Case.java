@@ -1,5 +1,7 @@
 package Positions;
 
+import java.util.ArrayList;
+
 /**
  * Classe permettant d'utiliser des cases
  *
@@ -8,9 +10,10 @@ package Positions;
 public class Case {
 
     private final Coordonnees coord;
-    private Color color;
+    private Couleur couleur;
     private boolean jouable;
     private boolean gagnante;
+    private static ArrayList<String> coupsJouables = new ArrayList<>();
 
     /**
      * Constructeur d'une case
@@ -19,18 +22,18 @@ public class Case {
      */
     public Case(Coordonnees c) {
         this.coord = c;
-        this.color = Color.NONE;
+        this.couleur = Couleur.NONE;
         this.jouable = false;
     }
 
     /**
-     * Affichage de la case actuelle suivant sa Color
+     * Affichage de la case actuelle suivant sa couleur
      *
-     * @return retourner le caractère associé à sa Color
+     * @return retourner le caractère associé à sa couleur
      */
-    public char getAffichable() {
+    public char afficheCase() {
         char g;
-        switch (color) {
+        switch (couleur) {
             case BLACK:
                 g = 'X';
                 break;
@@ -40,6 +43,7 @@ public class Case {
             default:
                 if (jouable) {
                     g = '.';
+                    coupsJouables.add(this.coord.coordEnString());
                 } else {
                     g = ' ';
                 }
@@ -49,22 +53,22 @@ public class Case {
     }
 
     /**
-     * Modifier la Color d'une case si le joueur est Noir
+     * Modifier la couleur d'une case si le joueur est Noir
      *
      * @param estNoir vrai si le joueur est noir
      */
-    public void setColor(boolean estNoir) {
+    public void setCouleur(boolean estNoir) {
         if (estNoir) {
-            this.color = Color.BLACK;
+            this.couleur = Couleur.BLACK;
         } else {
-            this.color = Color.WHITE;
+            this.couleur = Couleur.WHITE;
         }
     }
 
     /**
      * Les 3 types de cases possibles
      */
-    private enum Color {
+    private enum Couleur {
         BLACK, WHITE, NONE
     };
 
@@ -86,18 +90,17 @@ public class Case {
         for (Coordonnees cv : cVoisines) {
             Case cas = p.getCase(cv.getLigne(), cv.getCol());
 
-            cas.jouable = (cas.jouable || cas.color.equals(Color.NONE) && !cs.color.equals(Color.NONE));
+            cas.jouable = (cas.jouable || cas.couleur.equals(Couleur.NONE) && !cs.couleur.equals(Couleur.NONE));
         }
     }
 
     /**
-     * Vérifier si pour un plateau, 5 cases de même Color sont alignées
+     * Vérifier si pour un plateau, 5 cases de même couleur sont alignées
      *
      * @param p le plateau
      * @param plat les cases du plateau
      */
     public void setGagnante(Plateau p, Case[][] plat) {
-
         int nbAlignees = 0;
 
         for (Direction[] dirs : Direction.toutesComplementaires()) {
@@ -108,7 +111,7 @@ public class Case {
             for (Coordonnees c : coordVois) {
                 Case caseTmp = plat[c.getLigne()][c.getCol()];
 
-                if (!caseTmp.color.equals(Color.NONE) && caseTmp.color.equals(this.color)) {
+                if (!caseTmp.couleur.equals(Couleur.NONE) && caseTmp.couleur.equals(this.couleur)) {
                     nbAlignees++;
                 }
             }
@@ -132,5 +135,14 @@ public class Case {
      */
     public boolean estGagnante() {
         return gagnante;
+    }
+
+    /**
+     * Liste des coups jouables
+     *
+     * @return retourner la liste
+     */
+    public static ArrayList getListCoupsJouables() {
+        return coupsJouables;
     }
 }

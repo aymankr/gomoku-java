@@ -1,8 +1,8 @@
 package Joueurs;
 
 import Jeu.Partie;
+import Positions.Case;
 import Positions.Plateau;
-import Positions.Coordonnees;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -25,10 +25,7 @@ public class JoueurIA extends Joueur {
     }
 
     /**
-     * Jouer un coup pour une IA en cherchant une coordonnée voisine aléatoire
-     * d'une case déjà jouée, puis parmi ces voisines en choisir une qui est
-     * jouable, tant qu'un coup jouable n'est pas trouvé, continuer
-     * récursivement
+     * Jouer un coup pour une IA en cherchant un coup parmi les coups jouables
      *
      * @param coup le coup
      * @param listCoups la liste des coups
@@ -41,25 +38,11 @@ public class JoueurIA extends Joueur {
     public void jouer(String coup, ArrayList<String> listCoups, Plateau plat, Partie p, boolean estNoir,
             boolean estIA) {
 
-        Random r1 = new Random();
-        int max1 = listCoups.size();
-        int indexAleatoire1 = r1.nextInt(max1);
-        String coupExistant = listCoups.get(indexAleatoire1);
-        Coordonnees coordExistant = Coordonnees.convertCoord(coupExistant);
-
-        Coordonnees[] voisines = coordExistant.voisines(plat);
-        String[] coupsPossibles = new String[voisines.length];
-
-        int i = 0;
-        for (Coordonnees c : voisines) {
-            coupsPossibles[i] = c.coordEnString();
-            i++;
-        }
-
-        Random r2 = new Random();
-        int max2 = coupsPossibles.length;
-        int indexAleatoire2 = r2.nextInt(max2);
-        String cp = coupsPossibles[indexAleatoire2];
+        ArrayList<String> cJouables = Case.getListCoupsJouables();
+        Random r = new Random();
+        int max = cJouables.size();
+        int indexAleatoire = r.nextInt(max);
+        String cp = cJouables.get(indexAleatoire);
 
         if (p.coupValide(cp, false, estIA)) {
             System.out.println("L'IA a joué : " + cp + "\n");

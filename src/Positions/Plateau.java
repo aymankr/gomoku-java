@@ -94,7 +94,7 @@ public class Plateau {
             }
             for (int c = 0; c < nbColonnes; c++) {
                 out.print(" ");
-                out.print(plat[r][c].getAffichable());
+                out.print(plat[r][c].afficheCase());
 
             }
             out.println(" |");
@@ -123,7 +123,7 @@ public class Plateau {
     public void modifPlat(boolean estNoir, String coup) {
         Coordonnees c = Coordonnees.convertCoord(coup);
 
-        plat[c.getLigne()][c.getCol()].setColor(estNoir);
+        plat[c.getLigne()][c.getCol()].setCouleur(estNoir);
     }
 
     /**
