@@ -48,17 +48,20 @@ public class Partie {
      *
      */
     public void gererPartie() {
+        int taillePlat = (plat.getNbLignes() + 1) * (plat.getNbColonnes() + 1);
         boolean premierCoup = true;
         boolean estNoir = true;
         boolean finiParVictoire = false;
         int nbT = nbTours;
+        int tourActuel = 0;
         out.println("La partie dure " + nbT + " tours, à vous de jouer !" + "\n");
 
-        while (!finiParInterruption && !finiParVictoire && nbT > 0) {
-            int tour = nbTours - nbT + 1;
+        while (!finiParInterruption && !finiParVictoire && nbT > 0 && tourActuel != taillePlat) {
+            System.out.println(taillePlat);
+            tourActuel = nbTours - nbT + 1;
 
             plat.affiche();
-            out.println("\n" + "Tour " + tour + "\n");
+            out.println("\n" + "Tour " + tourActuel + "\n");
             if (nbT % 2 == 0) {
 
                 finiParVictoire = tourJoueur(j1, premierCoup, estNoir, j1.estUneIA());
