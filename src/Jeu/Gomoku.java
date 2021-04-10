@@ -10,7 +10,7 @@ import java.util.Scanner;
  * Classe principale pour lancer le menu principal
  * @author Ayman KACHMAR, Mathieu RAKOTOARISOA
  */
-public class Jeu {
+public class Gomoku {
 
     private static Scanner in = new Scanner(System.in);
     private static PrintStream out = System.out;
