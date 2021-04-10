@@ -57,7 +57,6 @@ public class Partie {
         out.println("La partie dure " + nbT + " tours, à vous de jouer !" + "\n");
 
         while (!finiParInterruption && !finiParVictoire && nbT > 0 && tourActuel != taillePlat) {
-            System.out.println(taillePlat);
             tourActuel = nbTours - nbT + 1;
 
             plat.affiche();
