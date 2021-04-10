@@ -44,7 +44,7 @@ public class Plateau {
 
     /**
      * Vérifier s'il y a victoire lors d'un alignement de cinq cases de même
-     * Color
+     * Couleur
      *
      * @param coup le coup
      * @return retourner vrai s'il y a victoire

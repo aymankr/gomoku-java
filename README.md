@@ -15,7 +15,7 @@ classe <strong>Coordonnees</strong> sert pour l'association d'une ligne et d'une
 <br>
 <h2> Choix effectués </h2>
 Pour effectuer ce programme, nous nous sommes inspirés des TP's que nous avons réalisés (le menu, par exemple, vient du TP bibliothèque) et du projet Towa (coordonnées, case...). 
-Nous avons <l>tenté</l> de réaliser un code cohérent en utilisant les notions apprises en cours : les classes abstraites, les List, la récursivité, les exceptions
+Nous avons <l>tenté</l> de réaliser un code cohérent en utilisant les notions apprises en cours : les classes abstraites, les ArrayList, la récursivité, les exceptions
  et évidemment les tests unitaires.
 <br> 
 Nous n'avons pas créé de collection. En effet, bien que nous voulions appliquer toutes les nouvelles notions apprises, nous n'avons pas trouvé d'utilité à utiliser une collection dans cette situation.
