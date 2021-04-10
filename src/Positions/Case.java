@@ -2,7 +2,7 @@ package Positions;
 
 /**
  * Classe permettant d'utiliser des cases
- * 
+ *
  * @author Ayman KACHMAR, Mathieu RAKOTOARISOA
  */
 public class Case {
@@ -86,9 +86,7 @@ public class Case {
         for (Coordonnees cv : cVoisines) {
             Case cas = p.getCase(cv.getLigne(), cv.getCol());
 
-            if (cas.color.equals(Color.NONE) && !cs.color.equals(Color.NONE)) {
-                cas.jouable = true;
-            }
+            cas.jouable = (cas.jouable || cas.color.equals(Color.NONE) && !cs.color.equals(Color.NONE));
         }
     }
 
@@ -114,9 +112,7 @@ public class Case {
                     nbAlignees++;
                 }
             }
-            if (nbAlignees >= 4) {
-                this.gagnante = true;
-            }
+            gagnante = (gagnante || nbAlignees >= 4);
         }
     }
 

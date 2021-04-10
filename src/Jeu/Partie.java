@@ -177,9 +177,7 @@ public class Partie {
                     + (this.plat.getNbLignes() + "\n" + "Ecrivez sous la forme : A1"));
         } else {
             for (String cp : coupsJoues) {
-                if (cp.contains(coup)) {
-                    b = false;
-                }
+                b = (b && !cp.contains(coup));
             }
             if (!b && !estIA) {
                 out.println(coup + " a déjà été joué, réessayez.");
