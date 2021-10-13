@@ -1,26 +1,20 @@
-<h1> Gomoku <h1>
+# Gomoku
 
-***Vous trouverez un rapport détaillé ci-dessus, renommé "rapport.pdf".***
-<h2> Répartition entre classes </h2>
+In this game you can play against a bot or against a human, the one who lines up 5 pieces side by side has won.
 
-Notre méthode <strong>main()</strong> se trouve dans la classe <strong>Jeu</strong>. 
-Cette classe permet de créer une instance de la classe partie depuis la méthode <strong>menuPrincipal()</strong>  Une partie est constituée de deux joueurs et d'un plateau, entre autres attributs nécessaires au déroulement d'une partie.
-<br>
-<strong>Joueur</strong> est une classe abstraite, mère de deux classes : 
-<strong>JoueurHumain</strong> et <strong>JoueurIA</strong>, ayant en commun la méthode abstraite <strong>jouer()</strong>. <strong>JoueurIA</strong> génère des coups dans cette méthode, qu'il va envoyer dans la classe <strong>Partie</strong>. <strong>JoueurHumain</strong> saisit lui-même les coups qu'il veut jouer. 
-<br>
-Un <strong>Plateau</strong> est constitué, entre autres, d'un double tableau de <strong>Case</strong>. Une case a plusieurs propriétés, dont des coordonnées. La
-classe <strong>Coordonnees</strong> sert pour l'association d'une ligne et d'une colonne dans le plateau, et pour faciliter l'utilisation d'une <strong>Case</strong>. Cette classe est nécessaire pour, notamment, trouver des coordonnées voisines avec l'aide de la classe 
-<strong>Direction</strong>.
-<br>
-<h2> Choix effectués </h2>
-Pour effectuer ce programme, nous nous sommes inspirés des TP's que nous avons réalisés (le menu, par exemple, vient du TP bibliothèque) et du projet Towa (coordonnées, case...). 
-Nous avons <l>tenté</l> de réaliser un code cohérent en utilisant les notions apprises en cours : les classes abstraites, les ArrayList, la récursivité, les exceptions
- et évidemment les tests unitaires.
-<br> 
-Nous n'avons pas créé de collection. En effet, bien que nous voulions appliquer toutes les nouvelles notions apprises, nous n'avons pas trouvé d'utilité à utiliser une collection dans cette situation.
-  
-<br> <br> 
-***Projet réalisé par Mathieu Rakotoarisoa et Ayman Kachmar S2A***
+You will find a detailed report above, renamed "rapport.pdf" (in French).
 
+Breakdown between classes
 
+Our main() method is found in the Game class. This class allows you to create an instance of the party class from the menuPrincipal() method.A game consists of two players and a board, among other attributes necessary for the progress of a game.
+Player is an abstract class, mother of two classes: JoueurHumain and JoueurIA, having in common the abstract method play(). JoueurIA generates hits in this method, which it will send in the Part class. JoueurHumain itself grabs the hits it wants to play.
+A Tray consists, among other things, of a double table of Case. A box has several properties, including coordinates. The Coordinates class is used for the association of a row and a column in the tray, and to facilitate the use of a Case. This class is needed to find neighbouring coordinates with the help of the Direction class.
+
+Choices made
+
+We tried to create a coherent code using the concepts learned in class: abstract classes, ArrayList, recursiveness, exceptions and obviously unit tests.
+We did not create a collection. Although we wanted to apply all the new concepts learned, we did not find it useful to use a collection in this situation.
+
+![example0](example0.png)
+
+![example1](example1.png)
